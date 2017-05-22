@@ -4,12 +4,4 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+Eric is a former high school chemistry teacher who aspires to learn the art of Software Crafstmanship. He is a firm believer that education is more than something that can be acquired in the classroom. He is always on the pursuit of learning something new as often as he can. When he is not learning or spending time with his family, he enjoys running, kayaking/whitewater kayaking, and playing lacrosse. 
