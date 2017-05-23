@@ -1,0 +1,2 @@
+<h2> Intro </h2>
+Your first Jekyll post. Thankfully this is an incredibly simple process as long as you have already followed along on with my previous post on <a href= ""> Setting up Jekyll with Github Pages </a>, as it assumes all your directories have already been made.
