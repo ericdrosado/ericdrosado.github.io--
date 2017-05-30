@@ -11,33 +11,34 @@
   You can set and save these configurations on your computer or you can ship them with code you might push to GitHub. For the purposes of this blog I am just going to show how to call these without saving them locally so you don't have to make any changes to your environment or affect anyones settings in their personal enviornment by forking your code.
 
   <h3>Run Tests at Random</h3>
-    In order to run tests at random you can traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
+  In order to run tests at random you can traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
 
-    rspec --order random 
+    rspec --order random
 
-    This will run all your tests at random. Why would this be helpful? Well, lets say you have many tests and you want to insure that their order doesn't play a role on whether or not they pass or fail, that would make this tool helpful.<sup> 1 </sup>
+  This will run all your tests at random. Why would this be helpful? Well, lets say you have many tests and you want to insure that their order doesn't play a role on whether or not they pass or fail, that would make this tool helpful.<sup> 1 </sup>
 
   <h3>Show Top 10 Slowest Tests</h3>
-    In order to show the top 10 slowest tests you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
+  In order to show the top 10 slowest tests you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
 
     rspec --profile
 
-    This will obviously give you a list of your top 10 slowest tests. If there is one thing I have learned is that tests should be fast! <sup> 2 </sup> Tests should be fast so that you run them and run them often, whereas if you have very slow tests, you are less likely to run them all. Sometimes it is good to go back and see what you can do to allow your tests to run faster.
+  This will obviously give you a list of your top 10 slowest tests. If there is one thing I have learned is that tests should be fast! <sup> 2 </sup> Tests should be fast so that you run them and run them often, whereas if you have very slow tests, you are less likely to run them all. Sometimes it is good to go back and see what you can do to allow your tests to run faster.
 
   <h3>Find a Single Failure</h3>
-    In order to find a single failure you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
+  In order to find a single failure you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:
 
     rspec --fail-fast
 
-    This will quickly run and find a single failure. This is helpful if you have many tests and you just want to deal with them one at a time. Really nothing more to it...moving on.
+  This will quickly run and find a single failure. This is helpful if you have many tests and you just want to deal with them one at a time. Really nothing more to it...moving on.
 
   <h3>Run a particular test</h3>
-    Now, here is a tool you may come to love as much as I have. When it comes to trouble shooting sometimes you just need to test a specific test where this little one comes in handy. You can do this by typing in the name of the rspec file followed by the first line your test is on. In order to do this you need to be in the directory where your test file is or you can write out the path. Here is an example of a rspec file called "car_spec" while already traversing into the spec directory:
+  Now, here is a tool you may come to love as much as I have. When it comes to trouble shooting sometimes you just need to test a specific test where this little one comes in handy. You can do this by typing in the name of the rspec file followed by the first line your test is on. In order to do this you need to be in the directory where your test file is or you can write out the path. Here is an example of a rspec file called "car_spec" while already traversing into the spec directory:
 
     rspec car_spec.rb:7
 
-    Notice the rspec call, then the file name, followed by the line number after the colon. Once again, a great way to test a specific test in your long list of tests.
+  Notice the rspec call, then the file name, followed by the line number after the colon. Once again, a great way to test a specific test in your long list of tests.
 
 
 <sup> 1 </sup> Skoglund, Kevin. (2015, February 5). www.Lynda.com - Ruby: Testing with RSpec: Configuration .Retrieved from https://www.lynda.com/Ruby-tutorials/Configuration/183884/371434-4.html
+
 <sup> 2 </sup> Haines, Corey. (2014, June 4). "Four Rules of Simple Design". LeanuPub Publishing 2014
