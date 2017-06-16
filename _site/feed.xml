@@ -1,5 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-02T11:36:21-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
-</subtitle><entry><title type="html">The Importance And Beauty Of Testing First</title><link href="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html" rel="alternate" type="text/html" title="The Importance And Beauty Of Testing First" /><published>2017-06-02T00:00:00-05:00</published><updated>2017-06-02T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first</id><content type="html" xml:base="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-16T09:40:01-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
+</subtitle><entry><title type="html">The Single Responsibility Principle</title><link href="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html" rel="alternate" type="text/html" title="The Single Responsibility Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/the-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).&lt;/p&gt;
+
+&lt;h2&gt; SRP Example &lt;/h2&gt;
+&lt;p&gt;I would like to use an example as a means to guide our exploration into SRP. Think of developing software for an art gallery. In the gallery they have a large array of art work that needs some cataloging which gives an art gallery employee the name of the artwork, the artists name, a description of the work, the location of the item in the gallery, and a means of printing the information out. Lets say we put all of these things in a single class to start named Artwork:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+
+  def get_title title
+    puts title
+  end
+
+  def get_artist artist
+    puts artist
+  end
+
+  def get_description description
+    puts description
+  end
+
+  def get_location location
+    puts location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After observing this class one might think…not bad, all the information that the curators at the gallery needed are in this class and everything is pretty accessible by calling one of the methods and passing a parameter. Well, not so my friend. There are a few instances where we are violating SRP.&lt;/p&gt;
+
+&lt;p&gt;The first violation may be obvious, which is the fact that we are printing in every single method. Printing in itself has nothing to do with the logic of the artwork. We should be doing one thing and one thing only in each method. If a curator wants a title then he should be able to get the information they need from a call and print it elsewhere. So, how about this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+  def get_location location
+    location
+  end
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Well, at this point we have pulled the logic of printing out of the methods and placed it into its own method in the Artwork class. This should also raise a red flag. We have now created a method in the class Artwork that has nothing to do with the Artwork as a whole. Artwork is suppose to provide information about the Artwork to the curator and the printing logic should not be considered a part of this class. So perhaps this will be better:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+  def get_location location
+    location
+  end
+
+end
+
+Class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now this is much better as we can make calls to printer if the curator needs to print certain information. Our code is now cleaner and offers us great flexibility if something is to be changed later on.&lt;/p&gt;
+
+&lt;p&gt;Well, we are not quite done yet. Can you see something else that we might want to change? Remember, the Artwork class is made to provide information to the curator about the artwork in itself. Is there a method that we can pull from the Artwork class? Yes! That location class could probably move as it provides information about the location of the artwork, but not specific information that would be considered an attribute of artwork. Confused? Think about it this way, the artwork in itself is not dependent on location in order to identify it. The title, the artist name, and the description are attributes of the class and the location could change at any point so it is independent. So perhaps something like this would be better:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+Class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+Class Location
+
+  def get_location location
+    location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our software now offers great flexbility if something should change and now we have created reuseable classes that our software could utilize as it grows over time.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;SRP is obviously important when it comes to flexibility of our software. If we think back to our Artwork example, perhaps in the future the curators want to make specific classes of artwork such as paintings, sculptures, and so forth. We are prepared to extend our software because we have made it flexible. We are also able to reuse our printing and location classes for these new classes that are to be added. With SRP we have set ourselves up to develop clean Object Oriented (OO) code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).</summary></entry><entry><title type="html">The Importance And Beauty Of Testing First</title><link href="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html" rel="alternate" type="text/html" title="The Importance And Beauty Of Testing First" /><published>2017-06-02T00:00:00-05:00</published><updated>2017-06-02T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first</id><content type="html" xml:base="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html">&lt;h2&gt; Intro: &lt;/h2&gt;
 &lt;p&gt;My mentor happen to share Uncle Bob’s blog post &lt;a href=&quot;https://8thlight.com/blog/uncle-bob/2013/09/23/Test-first.html&quot;&gt; “Test First,” &lt;/a&gt; which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, &lt;a href=&quot;https://leanpub.com/4rulesofsimpledesign&quot;&gt; “Understanding the Four Rules of Design”&lt;/a&gt;and he too describes the importance of tests as they pertain to software design.&lt;sup&gt; 1 &lt;/sup&gt;  These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.&lt;/p&gt;
 
 &lt;h2&gt; Why Test?&lt;/h2&gt;
