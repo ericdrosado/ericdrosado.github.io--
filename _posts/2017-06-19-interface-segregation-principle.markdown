@@ -6,25 +6,25 @@ Java Interfaces aside, I believe what this principle is trying to get at is you 
 <h2> Interface Segregation Principle Example </h2>
 When I first blogged about SOLID, I started with the Single Responsibility Principle with the following example:
 
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            puts title
-          end
+      def get_title title
+        puts title
+      end
 
-          def get_artist artist
-            puts artist
-          end
+      def get_artist artist
+        puts artist
+      end
 
-          def get_description description
-            puts description
-          end
+      def get_description description
+        puts description
+      end
 
-          def get_location location
-            puts location
-          end
+      def get_location location
+        puts location
+      end
 
-        end
+    end
 
 I've used the Artwork Gallery example for all of the SOLID principles thus far, but for this particular principle let's go back in time when our Gallery software was represented in a single class named Artwork. 
 
@@ -32,37 +32,37 @@ We've discussed that this is a clear violation of the Single Responsibility Prin
 
 In the end of the Single Responsibility post we settled on the following:
 
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            title
-          end
+      def get_title title
+        title
+      end
 
-          def get_artist artist
-            artist
-          end
+      def get_artist artist
+        artist
+      end
 
-          def get_description description
-            description
-          end
+      def get_description description
+        description
+      end
 
-        end
+    end
 
-        Class Printer
+    class Printer
 
-          def print information_to_print
-            puts information_to_print
-          end
+      def print information_to_print
+        puts information_to_print
+      end
 
-        end
+    end
 
-        Class Location
+    class Location
 
-          def get_location location
-            location
-          end
+      def get_location location
+        location
+      end
 
-        end
+    end
 
 Here, we abstracted by pulling out a Printer and Location class. We could have also created a printer interface for our Artwork class to handle Artwork specific printing. As mentioned many times before, this type of abstraction will help us greatly as our software grows.
 

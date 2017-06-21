@@ -4,81 +4,81 @@ To build off of my SRP blog post, I would like to take the opportunity to explor
 <h2> Open/Closed Principle Example </h2>
 Lets return to the art gallery as our curators would like to add some additional functionality to the software we built for them. This is what we have so far:
 
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            title
-          end
+      def get_title title
+        title
+      end
 
-          def get_artist artist
-            artist
-          end
+      def get_artist artist
+        artist
+      end
 
-          def get_description description
-            description
-          end
+      def get_description description
+        description
+      end
 
-        end
+    end
 
-        Class Printer
+    class Printer
 
-          def print information_to_print
-            puts information_to_print
-          end
+      def print information_to_print
+        puts information_to_print
+      end
 
-        end
+    end
 
-        Class Location
+    class Location
 
-          def get_location location
-            location
-          end
+      def get_location location
+        location
+      end
 
-        end
+    end
 
 Now, last time we made a few changes to adhere to SRP. We don't want to change this code in any way that would jeopardize its functionality as we know it works.
 
 Lets say the curators want to be able to organize the artwork into groups, such as sculptures and paintings and they need similar attributes from artwork such as the title, artist, and description. Well, we can do that using inheritance! We can make additional classes that extend our artwork class and utilize its methods. So here we are extending the functionality (Open) and not disrupting the current functionality (Closed).
 
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            title
-          end
+      def get_title title
+        title
+      end
 
-          def get_artist artist
-            artist
-          end
+      def get_artist artist
+        artist
+      end
 
-          def get_description description
-            description
-          end
-
-        end
-
-    Class Sculpture < Artwork
+      def get_description description
+        description
+      end
 
     end
 
-    Class Painting < Artwork
+    class Sculpture < Artwork
 
     end
 
-        Class Printer
+    class Painting < Artwork
 
-          def print information_to_print
-            puts information_to_print
-          end
+    end
 
-        end
+    class Printer
 
-        Class Location
+      def print information_to_print
+        puts information_to_print
+      end
 
-          def get_location location
-            location
-          end
+    end
 
-        end
+    class Location
+
+      def get_location location
+        location
+      end
+
+    end
 
 We can now utilize the methods from artwork into our Sculpture and Painting classes as they will inherit them. We have extended our software's functionality. Our new classes can also use the Printer and Location classes since we pulled them from the Artwork class in the SRP blog post. 
 

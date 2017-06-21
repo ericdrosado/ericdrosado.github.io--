@@ -4,7 +4,7 @@ SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLI
 <h2> SRP Example </h2>
 I would like to use an example as a means to guide our exploration into SRP. Think of developing software for an art gallery. In the gallery they have a large array of art work that needs some cataloging which gives an art gallery employee the name of the artwork, the artists name, a description of the work, the location of the item in the gallery, and a means of printing the information out. Lets say we put all of these things in a single class to start named Artwork:
 
-    Class Artwork
+    class Artwork
 
       def get_title title
         puts title
@@ -28,7 +28,7 @@ After observing this class one might think...not bad, all the information that t
 
 The first violation may be obvious, which is the fact that we are printing in every single method. Printing in itself has nothing to do with the logic of the artwork. We should be doing one thing and one thing only in each method. If a curator wants a title then he should be able to get the information they need from a call and print it elsewhere. So, how about this:
 
-     Class Artwork
+    class Artwork
 
       def get_title title
         title
@@ -54,7 +54,7 @@ The first violation may be obvious, which is the fact that we are printing in ev
 
 Well, at this point we have pulled the logic of printing out of the methods and placed it into its own method in the Artwork class. This should also raise a red flag. We have now created a method in the class Artwork that has nothing to do with the Artwork as a whole. Artwork is suppose to provide information about the Artwork to the curator and the printing logic should not be considered a part of this class. So perhaps this will be better:
 
-    Class Artwork
+    class Artwork
 
       def get_title title
         title
@@ -74,7 +74,7 @@ Well, at this point we have pulled the logic of printing out of the methods and 
 
     end
 
-    Class Printer
+    class Printer
 
       def print information_to_print
         puts information_to_print
@@ -86,7 +86,7 @@ Now this is much better as we can make calls to printer if the curator needs to 
 
 Well, we are not quite done yet. Can you see something else that we might want to change? Remember, the Artwork class is made to provide information to the curator about the artwork in itself. Is there a method that we can pull from the Artwork class? Yes! That location class could probably move as it provides information about the location of the artwork, but not specific information that would be considered an attribute of artwork. Confused? Think about it this way, the artwork in itself is not dependent on location in order to identify it. The title, the artist name, and the description are attributes of the class and the location could change at any point so it is independent. So perhaps something like this would be better:
 
-    Class Artwork
+    class Artwork
 
       def get_title title
         title
@@ -102,7 +102,7 @@ Well, we are not quite done yet. Can you see something else that we might want t
 
     end
 
-    Class Printer
+    class Printer
 
       def print information_to_print
         puts information_to_print
@@ -110,7 +110,7 @@ Well, we are not quite done yet. Can you see something else that we might want t
 
     end
 
-    Class Location
+    class Location
 
       def get_location location
         location

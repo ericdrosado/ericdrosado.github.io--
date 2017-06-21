@@ -4,69 +4,69 @@ In continuing our journey through the SOLID Principles of OOD, I'd like to addre
 <h2> Liskov Substitution Principle Example </h2>
 Last time in the Open/Closed Principle blog post we introduced some new classes and we now have the following:
     
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            title
-          end
+      def get_title title
+        title
+      end
 
-          def get_artist artist
-            artist
-          end
+      def get_artist artist
+        artist
+      end
 
-          def get_description description
-            description
-          end
-
-        end
-
-    Class Sculpture < Artwork
+      def get_description description
+        description
+      end
 
     end
 
-    Class Painting < Artwork
+    class Sculpture < Artwork
 
     end
 
-        Class Printer
+    class Painting < Artwork
 
-          def print information_to_print
-            puts information_to_print
-          end
+    end
 
-        end
+    class Printer
 
-        Class Location
+      def print information_to_print
+        puts information_to_print
+      end
 
-          def get_location location
-            location
-          end
+    end
 
-        end
+    class Location
+
+      def get_location location
+        location
+      end
+
+    end
 
 Let's not worry about the Printer and Location classes and remove them for now and lets focus on the class hierarchy:
 
-    Class Artwork
+    class Artwork
 
-          def get_title title
-            title
-          end
+      def get_title title
+        title
+      end
 
-          def get_artist artist
-            artist
-          end
+      def get_artist artist
+        artist
+      end
 
-          def get_description description
-            description
-          end
-
-        end
-
-    Class Sculpture < Artwork
+      def get_description description
+        description
+      end
 
     end
 
-    Class Painting < Artwork
+    class Sculpture < Artwork
+
+    end
+
+    class Painting < Artwork
 
     end
 
@@ -76,7 +76,7 @@ Ultimately we have the wrong abstration here, meaning perhaps we need to extend 
 
 So, that example might be a little hard to swallow. Lets look at another example that is commonly used:
 
-    Class Rectangle
+    class Rectangle
 
       def get_width
       end
@@ -86,7 +86,7 @@ So, that example might be a little hard to swallow. Lets look at another example
 
     end
 
-    Class Square < Rectangle
+    class Square < Rectangle
 
     end
 
