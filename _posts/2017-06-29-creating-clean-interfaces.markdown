@@ -1,0 +1,41 @@
+<h2> Intro: </h2>
+The idea of software design is a fairly new concept to me. I knew the basics, such as DRY, but in reality I was still creating potential issues in the console applications that I created. Now, being fairly new to software development I've noticed that you don't really run into many ideas and practices of design in tutorials. I suspect that it is because a good majority of the projects you create or work on during tutorials are so small in code length. You don't have to worry about design and interfaces, because you are simply learning the language. In this post I would like to share a bit of my current app and talk about some of the changes I made after reading Sandi Metz's <a href="http://www.poodr.com">"POODR"</a> book. 
+
+<h2> In the Beginning... </h2>
+When I first created my Hangman app, I thought "....psh...piece of cake," only to find that everytime I had to make changes I would have to change other methods or reveal more and more of my code to other objects to the point where almost every class was interweaved together. Initially, I saw this as a benefit as I created methods that other classes could utilize. But, what happens if one of my classes requires some other type of functionality from one of my methods later on.....OH POOP! Yep, I've created a much larger problem for myself.
+
+I'm going to share my first interface of my Hangman App. Yes, I am going to put myself "on blast" in hopes that another newbie could see what I am talking about, about a bad interface. Here it is:
+                
+                GameView ----------
+                    |             |
+      GameStart --Game-- IO ----  |
+                  |  |         |  |
+                  |  Prompter  |  |
+                  |      |     |  |
+                  Validator--------
+
+This may be hard to follow, so let me explain. Each line represents a connection between classes. What I did was rely on dependency injections to connect some of my classes. Notice how my Game class is conncected to GameView, GameStart, IO, Promper, and Validator. OK, not too bad, but I have my Validator class connected to Prompter, IO, and GameView. I am weaving quite the web here for the sake of allowing my program to work. 
+
+<h2> And now... </h2>
+Let's take a look at my current interface:
+
+              Validator      IO
+                  |          |
+    GameStart -- Game -- GameView -- Prompter
+
+Notice that this interface is very flat. This interface is way more deliberate in it's execution as opposed to my first interface.
+
+How did I settle on this interface? Before we begin, let me provide a key of my classes:
+
+    GameStart - A game runner to begin the game
+    Game - Handles main functionality of the game (Rules of Hangman)
+    Validator - A class that validates different aspects of the game such as: "Is the word the player chose, really a word?"
+    GameView - Controls everything that is displayed in the console
+    IO - Controls print and input
+    Prompter - Holds a list of different prompts that can be used in the game
+
+So, you may have discovered why I have designed my interface in this fashion after reading about my individual classes. The goal was to connect classes that related to each other. Classes that are closely related by functionality should be closer together because they become easier to access, which in turn minimizes coupling, and the breaking of Demeter's Law. Validator is close to Game as many aspects of the game must be validated, such as: "Is this letter that was chosen found in the word?" IO and Prompter are near GameView because they deal with what is displayed on the screen for the users. This layout now optimizes my program and minimizes long chains of coupling. Also, in the future, if I need to add additional functionality, it won't be thrown into a web of messages across classes, but instead can be strategically placed.
+
+<h2> Conclusion </h2>
+I highly recommed Sandi Metz's POODR book! It really game me insight into good Object Oriented Design. I'm almost positive that my current design is not the best design, but it is a start. With more experience, comes a better understanding of design practices.
+
