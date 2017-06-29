@@ -1,11 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-16T09:40:01-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
-</subtitle><entry><title type="html">The Single Responsibility Principle</title><link href="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html" rel="alternate" type="text/html" title="The Single Responsibility Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/the-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-29T14:28:24-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
+</subtitle><entry><title type="html">The Law Of Demeter</title><link href="http://localhost:4000/2017/06/29/the-law-of-demeter.html" rel="alternate" type="text/html" title="The Law Of Demeter" /><published>2017-06-29T00:00:00-05:00</published><updated>2017-06-29T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/29/the-law-of-demeter</id><content type="html" xml:base="http://localhost:4000/2017/06/29/the-law-of-demeter.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;You know that moment when you are learning to program and everything starts to click. You start stringing together methods in what you believe to be this beautiful symphony of functionality. Then, you come across a blog post, article, or book that says, “Actually, don’t do that… .” In comes the Law of Demeter (LoD). What?! LoD focuses on the idea of minimizing coupling in your code. Coupling?! Coupling, refers to how objects can call upon each other for some sort of functionality. If I lost you, thats OK, that’s what examples are for. Let’s dive in.&lt;/p&gt;
+
+&lt;h2&gt; The Law of Demeter Example &lt;/h2&gt;
+&lt;p&gt;Let’s imagine a program message chain. It might look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@printer.print(&quot;Hello&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here I might have created a “printer object” that has a “print” method and I am using it to print “Hello.” OK, I’m utilizing an object to print something to the console using the method print. No coupling here! Now lets try to add another object into the loop.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@printer.print(@greeting.hello)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now here I have some coupling. Similar to before I have called my printer object to get it’s method print, but now I have another object named “greeting” that has a method named “hello,” which one might assume returns a “Hello” greeting. Now “print” is taking in a parameter from this object (greeting) and it’s method (hello). These objects have been coupled together. They are utilizing each others services in order to create some sort of functionality.&lt;/p&gt;
+
+&lt;p&gt;Coupling is a necessity when it comes to functionality of code, but when it comes to breaking LoD that is when your coupling has gone from a necessity to an act of misuse. When is coupling bad? Well, when you are traversing through a great deal of classes in order to gain the functionality of a single method, then you know you might have a design problem. For example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@company.get_greeting(@manager.speak(@employee.speak(@apprentice.speak(@greeting.hello)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Notice how we traversed through multiple methods in order to obtain a single prompt for a greeting. This is problematic and reveals a few things about our code. One, our code interface might not be ideal if we have to traverse through so many methods. In turn, our code may know too much about other classes. No, our code doesn’t actually know about other methods per say, but what is happening is your knowledge of this particular piece of software is allowing you to reach out to far distances of classes in order to gain some sort of functionality that you need in a specific spot. It would be better to use code that hides implementation details from another class. What we have done in essence is bind our classes to each other by making these calls. Two, what happens if we happen to change a class or method along this particular path? We’ll be in a bit of trouble rewriting all of this code to account for the change.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;In the end it pays to decouple long chains of code to avoid pain later. It would be better to utilize an interface that minimizes this sort of chaining as well as creating classes that hide implementation from other classes so that classes don’t pick and choose which methods they want to utilize. If we allow this “picking and choosing” of methods this creates an unmanageable web of code if something should change. You lose a great deal of flexbility in your code. Follow LoD the best you can.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: You know that moment when you are learning to program and everything starts to click. You start stringing together methods in what you believe to be this beautiful symphony of functionality. Then, you come across a blog post, article, or book that says, “Actually, don’t do that… .” In comes the Law of Demeter (LoD). What?! LoD focuses on the idea of minimizing coupling in your code. Coupling?! Coupling, refers to how objects can call upon each other for some sort of functionality. If I lost you, thats OK, that’s what examples are for. Let’s dive in.</summary></entry><entry><title type="html">Dependency Inversion Principle</title><link href="http://localhost:4000/2017/06/20/dependency-inversion-principle.html" rel="alternate" type="text/html" title="Dependency Inversion Principle" /><published>2017-06-20T00:00:00-05:00</published><updated>2017-06-20T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/20/dependency-inversion-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/20/dependency-inversion-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;If you have been following along in my journey through the SOLID principles, well, you’ve made it to the last principle, Dependency Inversion Principle (DIP). The DIP focuses on the importance of abstraction in creating software flexibility. Ultimately you want to depend on class abstractions as opposed to class concretions. What does this all mean? Lets go over it with an example.&lt;/p&gt;
+
+&lt;h2&gt; Dependency Inversion Principle Example &lt;/h2&gt;
+&lt;p&gt;Let’s continue to use our Art Gallery example and lets say that our Artwork class begins to become more complex with time and now there are lower level classes that it relies on, such as a wide variety of different types of paintings of specific eras. Let’s start with a MiddleAgesPainting Class.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def initialize()
+    @middle_ages_painting = MiddleAgesPainting.new
+  end
+
+  def get_description
+    @middle_ages_painting.description
+  end
+
+end
+
+class MiddleAgesPainting
+
+  def get_description
+    #description
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So to go over the ruby above, what we have is a situation where our higher level class Artwork is dependent on its lower level counterpart when it comes to obtaining a description for MiddleAgesPainting. This seems fine, but what happens if we need to include a EarlyAndHighRenaissancePainting class. Now we are starting to add a bit of complication to our code that could continue to get messy with each additional era class that pops up. This is a violation of the DIP. What we want to do is depend on an abstraction of description as to not clutter our Artwork class. How do we do that? Let’s take a look:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def initialize(middle_ages_painting, early_and_high_renaissance_painting )
+    @middle_ages_painting = middle_ages_painting
+    @early_and_high_renaissance_painting = early_and_high_renaissance_painting
+  end
+
+  def get_description painting_era
+    painting_era.description
+  end
+
+end
+
+class MiddleAgesPainting
+
+  def get_description
+    #description
+  end
+
+end
+
+class EarlyAndHighRenaissancePainting
+
+  def get_description
+    #description
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here we have done some abstraction in the sense that my Arwork class is no longer reliant on any one of the lower level classes such as MiddleAgesPainting or EarlyAndHighRenaissancePainting. Instead, we have a situation where the painting_era can be passed through get_description in the Artwork class.&lt;/p&gt;
+
+&lt;p&gt;I have also utilized a technique called Dependency Injection,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def initialize(middle_ages_painting, early_and_high_renaissance_painting )
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where I pass my painting era classes into my Artwork class through the initialize method so it is easily accessible to my Artwork class. This supports my higher level code with the ability to call down to my lower level code.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;As you can see, by utilizing abstractions we have a greater deal of flexibility with our code. If we used the first example, which is a concrete connection between my Artwork class and my MiddleAgesPainting class, I would have to do that for every additional painting era class that would come about over time, which in turn would force me to change my Artwork class often and hard code it to all these othere classes. Using DIP has now given me the freedom for my higher level class to call down to my lower level classes in an efficient way.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: If you have been following along in my journey through the SOLID principles, well, you’ve made it to the last principle, Dependency Inversion Principle (DIP). The DIP focuses on the importance of abstraction in creating software flexibility. Ultimately you want to depend on class abstractions as opposed to class concretions. What does this all mean? Lets go over it with an example.</summary></entry><entry><title type="html">Interface Segregation Principle</title><link href="http://localhost:4000/2017/06/19/interface-segregation-principle.html" rel="alternate" type="text/html" title="Interface Segregation Principle" /><published>2017-06-19T00:00:00-05:00</published><updated>2017-06-19T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/19/interface-segregation-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/19/interface-segregation-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.&lt;/p&gt;
+
+&lt;p&gt;Java Interfaces aside, I believe what this principle is trying to get at is you want to separate functionality as much as possible so your software does not get tied up in what could become a situation where you have classes that do too much and in turn it makes it much harder to build flexibility into your software. Lets explore this with an example we’ve seen before.&lt;/p&gt;
+
+&lt;h2&gt; Interface Segregation Principle Example &lt;/h2&gt;
+&lt;p&gt;When I first blogged about SOLID, I started with the Single Responsibility Principle with the following example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    puts title
+  end
+
+  def get_artist artist
+    puts artist
+  end
+
+  def get_description description
+    puts description
+  end
+
+  def get_location location
+    puts location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I’ve used the Artwork Gallery example for all of the SOLID principles thus far, but for this particular principle let’s go back in time when our Gallery software was represented in a single class named Artwork.&lt;/p&gt;
+
+&lt;p&gt;We’ve discussed that this is a clear violation of the Single Responsibility Principle. There is a lot going on in this one class and it lacks abstractions (aka lacks separation of methods) that allow for flexibility of your software. For instance, I’ve mentioned that this class is doing too much. It is printing values and giving you additional information such as location, which is not necessary when it comes to just getting basic information about the artwork.&lt;/p&gt;
+
+&lt;p&gt;In the end of the Single Responsibility post we settled on the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+class Location
+
+  def get_location location
+    location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here, we abstracted by pulling out a Printer and Location class. We could have also created a printer interface for our Artwork class to handle Artwork specific printing. As mentioned many times before, this type of abstraction will help us greatly as our software grows.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;Ultimately the biggest takeaway is that you want to prevent yourself from having a single interface that does too much. You want to have multiple interfaces to minimize dependencies on a single class. In the end you and your colleagues will be thankful that you did this from now and into the future.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.</summary></entry><entry><title type="html">The Single Responsibility Principle</title><link href="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html" rel="alternate" type="text/html" title="The Single Responsibility Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/the-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. The Single Responsibility Principle states that each class and each method should have a single responsibility. As Uncle Bob would say, “A class should have only one reason to change,” which ultimately means that a class should have responsibility over a single part of functionality in a piece of software. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).&lt;/p&gt;
 
 &lt;h2&gt; SRP Example &lt;/h2&gt;
 &lt;p&gt;I would like to use an example as a means to guide our exploration into SRP. Think of developing software for an art gallery. In the gallery they have a large array of art work that needs some cataloging which gives an art gallery employee the name of the artwork, the artists name, a description of the work, the location of the item in the gallery, and a means of printing the information out. Lets say we put all of these things in a single class to start named Artwork:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
 
   def get_title title
     puts title
@@ -31,7 +204,7 @@ end
 
 &lt;p&gt;The first violation may be obvious, which is the fact that we are printing in every single method. Printing in itself has nothing to do with the logic of the artwork. We should be doing one thing and one thing only in each method. If a curator wants a title then he should be able to get the information they need from a call and print it elsewhere. So, how about this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Class Artwork
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
 
   def get_title title
     title
@@ -59,7 +232,7 @@ end
 
 &lt;p&gt;Well, at this point we have pulled the logic of printing out of the methods and placed it into its own method in the Artwork class. This should also raise a red flag. We have now created a method in the class Artwork that has nothing to do with the Artwork as a whole. Artwork is suppose to provide information about the Artwork to the curator and the printing logic should not be considered a part of this class. So perhaps this will be better:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
 
   def get_title title
     title
@@ -79,7 +252,7 @@ end
 
 end
 
-Class Printer
+class Printer
 
   def print information_to_print
     puts information_to_print
@@ -93,7 +266,7 @@ end
 
 &lt;p&gt;Well, we are not quite done yet. Can you see something else that we might want to change? Remember, the Artwork class is made to provide information to the curator about the artwork in itself. Is there a method that we can pull from the Artwork class? Yes! That location class could probably move as it provides information about the location of the artwork, but not specific information that would be considered an attribute of artwork. Confused? Think about it this way, the artwork in itself is not dependent on location in order to identify it. The title, the artist name, and the description are attributes of the class and the location could change at any point so it is independent. So perhaps something like this would be better:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class Artwork
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
 
   def get_title title
     title
@@ -109,7 +282,7 @@ end
 
 end
 
-Class Printer
+class Printer
 
   def print information_to_print
     puts information_to_print
@@ -117,7 +290,7 @@ Class Printer
 
 end
 
-Class Location
+class Location
 
   def get_location location
     location
@@ -130,7 +303,197 @@ end
 &lt;p&gt;Our software now offers great flexbility if something should change and now we have created reuseable classes that our software could utilize as it grows over time.&lt;/p&gt;
 
 &lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;SRP is obviously important when it comes to flexibility of our software. If we think back to our Artwork example, perhaps in the future the curators want to make specific classes of artwork such as paintings, sculptures, and so forth. We are prepared to extend our software because we have made it flexible. We are also able to reuse our printing and location classes for these new classes that are to be added. With SRP we have set ourselves up to develop clean Object Oriented (OO) code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).</summary></entry><entry><title type="html">The Importance And Beauty Of Testing First</title><link href="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html" rel="alternate" type="text/html" title="The Importance And Beauty Of Testing First" /><published>2017-06-02T00:00:00-05:00</published><updated>2017-06-02T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first</id><content type="html" xml:base="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;SRP is obviously important when it comes to flexibility of our software. If we think back to our Artwork example, perhaps in the future the curators want to make specific classes of artwork such as paintings, sculptures, and so forth. We are prepared to extend our software because we have made it flexible. We are also able to reuse our printing and location classes for these new classes that are to be added. With SRP we have set ourselves up to develop clean Object Oriented (OO) code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. The Single Responsibility Principle states that each class and each method should have a single responsibility. As Uncle Bob would say, “A class should have only one reason to change,” which ultimately means that a class should have responsibility over a single part of functionality in a piece of software. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).</summary></entry><entry><title type="html">Open Closed Principle</title><link href="http://localhost:4000/2017/06/16/open-closed-principle.html" rel="alternate" type="text/html" title="Open Closed Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/open-closed-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/open-closed-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;To build off of my SRP blog post, I would like to take the opportunity to explore the Open/Closed Principle of the SOLID Principles of Object Oriented Design. I’m going to refer back to the Art Gallery example that I used in my SRP blog post and build off that example to explore the Open/Closed Principle. The Open/Closed principle states that software should be open for extension and closed for modification. The basic idea is that we shouldn’t want to change code that is tested and works, but instead we want to extend its functionality by building off of it. Lets explore our previous example and see how this applies.&lt;/p&gt;
+
+&lt;h2&gt; Open/Closed Principle Example &lt;/h2&gt;
+&lt;p&gt;Lets return to the art gallery as our curators would like to add some additional functionality to the software we built for them. This is what we have so far:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+class Location
+
+  def get_location location
+    location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, last time we made a few changes to adhere to SRP. We don’t want to change this code in any way that would jeopardize its functionality as we know it works.&lt;/p&gt;
+
+&lt;p&gt;Lets say the curators want to be able to organize the artwork into groups, such as sculptures and paintings and they need similar attributes from artwork such as the title, artist, and description. Well, we can do that using inheritance! We can make additional classes that extend our artwork class and utilize its methods. So here we are extending the functionality (Open) and not disrupting the current functionality (Closed).&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Sculpture &amp;lt; Artwork
+
+end
+
+class Painting &amp;lt; Artwork
+
+end
+
+class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+class Location
+
+  def get_location location
+    location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can now utilize the methods from artwork into our Sculpture and Painting classes as they will inherit them. We have extended our software’s functionality. Our new classes can also use the Printer and Location classes since we pulled them from the Artwork class in the SRP blog post.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;We have now extended the functionality of our software, but we did not modify our older code. We have followed the Open/Closed principle and now our code is much cleaner for it. If things change in the future, as they tend to do, we can continue to extend the functionality of our code. The Open/Closed Principle is definitely an important piece to clean OO code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: To build off of my SRP blog post, I would like to take the opportunity to explore the Open/Closed Principle of the SOLID Principles of Object Oriented Design. I’m going to refer back to the Art Gallery example that I used in my SRP blog post and build off that example to explore the Open/Closed Principle. The Open/Closed principle states that software should be open for extension and closed for modification. The basic idea is that we shouldn’t want to change code that is tested and works, but instead we want to extend its functionality by building off of it. Lets explore our previous example and see how this applies.</summary></entry><entry><title type="html">Liskov Substitution Principle</title><link href="http://localhost:4000/2017/06/16/liskov-substitution-principle.html" rel="alternate" type="text/html" title="Liskov Substitution Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/liskov-substitution-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/liskov-substitution-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+&lt;p&gt;In continuing our journey through the SOLID Principles of OOD, I’d like to address the Liskov Substitution Principle. This principle is very straightforward and it allows me an oportunity to build off my Open/Closed Principle post. The Liskov Substitution Principle states that subclasses should have the ability to substitute for their parent classes in a class heirarchy. Let’s look at the Open/Closed example and build off that.&lt;/p&gt;
+
+&lt;h2&gt; Liskov Substitution Principle Example &lt;/h2&gt;
+&lt;p&gt;Last time in the Open/Closed Principle blog post we introduced some new classes and we now have the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Sculpture &amp;lt; Artwork
+
+end
+
+class Painting &amp;lt; Artwork
+
+end
+
+class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+class Location
+
+  def get_location location
+    location
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s not worry about the Printer and Location classes and remove them for now and lets focus on the class hierarchy:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Sculpture &amp;lt; Artwork
+
+end
+
+class Painting &amp;lt; Artwork
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here we have classes that inherit directly from Artwork, but they do not have methods of their own. Let’s say that in the sculpting word there are no such things as titles, but instead they like to call them names instead of titles. This example is a bit of a stretch, but we don’t have a name method in artwork in order for a sculpture to inherit. Perhaps we should motify get_title in sculpture and override it, but that would defeat the purpose of the inheritance.&lt;/p&gt;
+
+&lt;p&gt;Ultimately we have the wrong abstration here, meaning perhaps we need to extend our Artwork class to have artwork with names and another with titles so that sculpture might work. We cannot substitute sculpture into Artwork because of this difference.&lt;/p&gt;
+
+&lt;p&gt;So, that example might be a little hard to swallow. Lets look at another example that is commonly used:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Rectangle
+
+  def get_width
+  end
+
+  def get_height
+  end
+
+end
+
+class Square &amp;lt; Rectangle
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This might not look like a problem, but does it make sense that the Square class should inherit the two methods in Rectangle? No! With a square you don’t need to get a width and height, but just need the length of just one side. Once again, we need another level of abstraction here that can account for Rectangles and one for Squares. Squares cannot substitute in for Rectangles because rectangles have different dimensions. Thus, this breaks Liskov’s Substitution Principle.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;Liskov’s Substitution Principle can really help with making sense of your class heirarchies. You can make the appropriate abstractions and allow yourself to have clean OO code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: In continuing our journey through the SOLID Principles of OOD, I’d like to address the Liskov Substitution Principle. This principle is very straightforward and it allows me an oportunity to build off my Open/Closed Principle post. The Liskov Substitution Principle states that subclasses should have the ability to substitute for their parent classes in a class heirarchy. Let’s look at the Open/Closed example and build off that.</summary></entry><entry><title type="html">The Importance And Beauty Of Testing First</title><link href="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html" rel="alternate" type="text/html" title="The Importance And Beauty Of Testing First" /><published>2017-06-02T00:00:00-05:00</published><updated>2017-06-02T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first</id><content type="html" xml:base="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html">&lt;h2&gt; Intro: &lt;/h2&gt;
 &lt;p&gt;My mentor happen to share Uncle Bob’s blog post &lt;a href=&quot;https://8thlight.com/blog/uncle-bob/2013/09/23/Test-first.html&quot;&gt; “Test First,” &lt;/a&gt; which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, &lt;a href=&quot;https://leanpub.com/4rulesofsimpledesign&quot;&gt; “Understanding the Four Rules of Design”&lt;/a&gt;and he too describes the importance of tests as they pertain to software design.&lt;sup&gt; 1 &lt;/sup&gt;  These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.&lt;/p&gt;
 
 &lt;h2&gt; Why Test?&lt;/h2&gt;

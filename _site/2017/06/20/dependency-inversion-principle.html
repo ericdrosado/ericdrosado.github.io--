@@ -1,0 +1,74 @@
+<h2> Intro: </h2>
+<p>If you have been following along in my journey through the SOLID principles, well, you’ve made it to the last principle, Dependency Inversion Principle (DIP). The DIP focuses on the importance of abstraction in creating software flexibility. Ultimately you want to depend on class abstractions as opposed to class concretions. What does this all mean? Lets go over it with an example.</p>
+
+<h2> Dependency Inversion Principle Example </h2>
+<p>Let’s continue to use our Art Gallery example and lets say that our Artwork class begins to become more complex with time and now there are lower level classes that it relies on, such as a wide variety of different types of paintings of specific eras. Let’s start with a MiddleAgesPainting Class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Artwork
+
+  def initialize()
+    @middle_ages_painting = MiddleAgesPainting.new
+  end
+
+  def get_description
+    @middle_ages_painting.description
+  end
+
+end
+
+class MiddleAgesPainting
+
+  def get_description
+    #description
+  end
+
+end
+</code></pre>
+</div>
+
+<p>So to go over the ruby above, what we have is a situation where our higher level class Artwork is dependent on its lower level counterpart when it comes to obtaining a description for MiddleAgesPainting. This seems fine, but what happens if we need to include a EarlyAndHighRenaissancePainting class. Now we are starting to add a bit of complication to our code that could continue to get messy with each additional era class that pops up. This is a violation of the DIP. What we want to do is depend on an abstraction of description as to not clutter our Artwork class. How do we do that? Let’s take a look:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Artwork
+
+  def initialize(middle_ages_painting, early_and_high_renaissance_painting )
+    @middle_ages_painting = middle_ages_painting
+    @early_and_high_renaissance_painting = early_and_high_renaissance_painting
+  end
+
+  def get_description painting_era
+    painting_era.description
+  end
+
+end
+
+class MiddleAgesPainting
+
+  def get_description
+    #description
+  end
+
+end
+
+class EarlyAndHighRenaissancePainting
+
+  def get_description
+    #description
+  end
+
+end
+</code></pre>
+</div>
+
+<p>Here we have done some abstraction in the sense that my Arwork class is no longer reliant on any one of the lower level classes such as MiddleAgesPainting or EarlyAndHighRenaissancePainting. Instead, we have a situation where the painting_era can be passed through get_description in the Artwork class.</p>
+
+<p>I have also utilized a technique called Dependency Injection,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def initialize(middle_ages_painting, early_and_high_renaissance_painting )
+end
+</code></pre>
+</div>
+
+<p>where I pass my painting era classes into my Artwork class through the initialize method so it is easily accessible to my Artwork class. This supports my higher level code with the ability to call down to my lower level code.</p>
+
+<h2> Conclusion </h2>
+<p>As you can see, by utilizing abstractions we have a greater deal of flexibility with our code. If we used the first example, which is a concrete connection between my Artwork class and my MiddleAgesPainting class, I would have to do that for every additional painting era class that would come about over time, which in turn would force me to change my Artwork class often and hard code it to all these othere classes. Using DIP has now given me the freedom for my higher level class to call down to my lower level classes in an efficient way.</p>

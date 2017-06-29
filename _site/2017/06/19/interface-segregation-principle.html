@@ -1,0 +1,74 @@
+<h2> Intro: </h2>
+<p>Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.</p>
+
+<p>Java Interfaces aside, I believe what this principle is trying to get at is you want to separate functionality as much as possible so your software does not get tied up in what could become a situation where you have classes that do too much and in turn it makes it much harder to build flexibility into your software. Lets explore this with an example we’ve seen before.</p>
+
+<h2> Interface Segregation Principle Example </h2>
+<p>When I first blogged about SOLID, I started with the Single Responsibility Principle with the following example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Artwork
+
+  def get_title title
+    puts title
+  end
+
+  def get_artist artist
+    puts artist
+  end
+
+  def get_description description
+    puts description
+  end
+
+  def get_location location
+    puts location
+  end
+
+end
+</code></pre>
+</div>
+
+<p>I’ve used the Artwork Gallery example for all of the SOLID principles thus far, but for this particular principle let’s go back in time when our Gallery software was represented in a single class named Artwork.</p>
+
+<p>We’ve discussed that this is a clear violation of the Single Responsibility Principle. There is a lot going on in this one class and it lacks abstractions (aka lacks separation of methods) that allow for flexibility of your software. For instance, I’ve mentioned that this class is doing too much. It is printing values and giving you additional information such as location, which is not necessary when it comes to just getting basic information about the artwork.</p>
+
+<p>In the end of the Single Responsibility post we settled on the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Artwork
+
+  def get_title title
+    title
+  end
+
+  def get_artist artist
+    artist
+  end
+
+  def get_description description
+    description
+  end
+
+end
+
+class Printer
+
+  def print information_to_print
+    puts information_to_print
+  end
+
+end
+
+class Location
+
+  def get_location location
+    location
+  end
+
+end
+</code></pre>
+</div>
+
+<p>Here, we abstracted by pulling out a Printer and Location class. We could have also created a printer interface for our Artwork class to handle Artwork specific printing. As mentioned many times before, this type of abstraction will help us greatly as our software grows.</p>
+
+<h2> Conclusion </h2>
+<p>Ultimately the biggest takeaway is that you want to prevent yourself from having a single interface that does too much. You want to have multiple interfaces to minimize dependencies on a single class. In the end you and your colleagues will be thankful that you did this from now and into the future.</p>
