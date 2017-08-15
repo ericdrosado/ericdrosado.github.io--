@@ -1,5 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-07T21:25:17-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
-</subtitle><entry><title type="html">How To Setup Quick And Nimble Using Cocoapods</title><link href="http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods.html" rel="alternate" type="text/html" title="How To Setup Quick And Nimble Using Cocoapods" /><published>2017-07-10T00:00:00-05:00</published><updated>2017-07-10T00:00:00-05:00</updated><id>http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods</id><content type="html" xml:base="http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods.html">&lt;h2&gt; Intro: &lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-08T11:36:39-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
+</subtitle><entry><title type="html">Understanding This In Javascript</title><link href="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html" rel="alternate" type="text/html" title="Understanding This In Javascript" /><published>2017-08-07T00:00:00-05:00</published><updated>2017-08-07T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/07/understanding-this-in-javascript</id><content type="html" xml:base="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;In the past I have worked through a variety of tutorials involving Javascript, and I have also made a few small projects along the way. This time around, I found myself particularly interested in the concept of “this,” as it still alludes my understanding completely. This post is an attempt to summarize ‘this’ basics from a great article I found called &lt;a href=&quot;http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/&quot;&gt;“Understand Javascript’s ‘this’ with Clarity, and Master It.”&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt; Think of 'this' as a Pronoun &lt;/h2&gt;
+&lt;p&gt;In case you need a refresher on the meaning of a pronoun, it is a word that substitutes for a noun, a person, place, or thing. A few examples would be he, she, or it. They take the place of a noun for simplicity and prevents sentences like: “Eric likes to run because Eric enjoys exercise.” The more accepted sentence structure would be: “Eric likes to run because he enjoys exercise.” Now, as a reader you understand the context of ‘he’ because it clearly relates to the noun ‘Eric.’ Now, ‘this’ works in a similar fashion. Lets take a look at an example:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Dog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Wrigley&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;petDescription&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; is a&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now notice that within the petDescription function we call out to the pet object to obtain it’s properties ‘type’ and ‘name.’ No big secrets exposed here, but this is a prime opportunity to utilize the ‘this’ keyword as our “pronoun:”&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Dog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Wrigley&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;petDescription&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; is a&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, seeing this code we have a sense for the context of ‘this’ because the function is a property of our pet object. So in this case ‘this’ clearly refers to ‘pet.’&lt;/p&gt;
+
+&lt;h2&gt; Using 'this' Globally &lt;/h2&gt;
+&lt;p&gt;When utilizing ‘this’ through a global scope we have to understand that ‘window’ will represent our global object, unless in strict mode. So, lets take a look at the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Rhino&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;petDescription&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; is a&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Dog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Wrigley&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;petDescription&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; is a&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;petDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;If we called the petDescription function outside of the pet object, what do you expect to get for your pet description? Well, you would get “Rhino is a cat” as your description as opposed to “Wrigley is a dog” in this particular case. Because we are running petDescription in a global context we are essentially saying ‘window.petDescription’. If I wanted to get “Wrigley is a dog” I would have to call ‘pet.petDescription()’.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;Thinking of ‘this’ as a pronoun greatly simplifies the concept of ‘this’. I still highly recommend reading  &lt;a href=&quot;http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/&quot;&gt;“Understand Javascript’s ‘this’ with Clarity, and Master It”&lt;/a&gt; for additional clarity and helpful tips. Otherwise, this is enough of ‘this’ to get you through your first JS project.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro In the past I have worked through a variety of tutorials involving Javascript, and I have also made a few small projects along the way. This time around, I found myself particularly interested in the concept of “this,” as it still alludes my understanding completely. This post is an attempt to summarize ‘this’ basics from a great article I found called “Understand Javascript’s ‘this’ with Clarity, and Master It.”</summary></entry><entry><title type="html">How To Setup Quick And Nimble Using Cocoapods</title><link href="http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods.html" rel="alternate" type="text/html" title="How To Setup Quick And Nimble Using Cocoapods" /><published>2017-07-10T00:00:00-05:00</published><updated>2017-07-10T00:00:00-05:00</updated><id>http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods</id><content type="html" xml:base="http://localhost:4000/2017/07/10/how-to-setup-quick-and-nimble-using-cocoapods.html">&lt;h2&gt; Intro: &lt;/h2&gt;
 &lt;p&gt;I just recently had the opportunity to do a bowling kata with Swift, and I must say it brought me back to my Java days. The down side is that just finishing a Ruby app and making this transition to a strongly typed language really does put you through a mental exercise. I’m very happy I decided to start programming with Java as it would have probably been difficult to pick up Swift so quickly. Anyway…on to more important things, such as todays topic, which is installing Quick and Nimble, a nice testing framework that originates from the famous RSpec.&lt;/p&gt;
 
 &lt;p&gt;My mentors tasked me with finding a testing framework to use with Swift and I gravitated towards Quick and Nimble, because of its readability. The unfortunate aspect of all this, was the inability to quickly setup Quick and Nimble from downloading to its implementation in Xcode. No offense to the Quick and Nimble Documentation, but it just wasn’t enough for me to get everything up and running quickly. In this post I will go step by step on how to download Quick and Nimble as well as, how to set-up your first test case.&lt;/p&gt;
@@ -673,54 +732,4 @@ end
 
 &lt;p&gt;Simply put, allow your tests to steer the path of your design to a completed product. Not only will your brain thank you for it, but so will the software crafters around you.&lt;/p&gt;
 
-&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt; Haines, Corey. (2014, June 4). “Four Rules of Simple Design”. LeanuPub Publishing 2014&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: My mentor happen to share Uncle Bob’s blog post “Test First,” which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, “Understanding the Four Rules of Design”and he too describes the importance of tests as they pertain to software design. 1 These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.</summary></entry><entry><title type="html">The Usefulness Of Configurations In Rspec</title><link href="http://localhost:4000/2017/05/30/the-usefulness-of-configurations-in-rspec.html" rel="alternate" type="text/html" title="The Usefulness Of Configurations In Rspec" /><published>2017-05-30T00:00:00-05:00</published><updated>2017-05-30T00:00:00-05:00</updated><id>http://localhost:4000/2017/05/30/the-usefulness-of-configurations-in-rspec</id><content type="html" xml:base="http://localhost:4000/2017/05/30/the-usefulness-of-configurations-in-rspec.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;Using RSpec for testing is absoultely amazing for a complete beginner. I’ve personally dabbled in testing with Java, which was a bit rough, but I have to say that learning RSpec is super straightforward and the way RSpec reads is incredibly beautiful! Besides, reading RSpec in your favorite editor, testing results in the terminal can also read beautifully. The best part, you can customize how your tests look in the terminal through configurations. There is a list of RSpec configurations you can use, but I just want to talk about four of them that I recently learned about from Kevin Skoglund’s, “Ruby: Testing with RSpec - Configurations” video.&lt;sup&gt; 1 &lt;/sup&gt;&lt;/p&gt;
-
-&lt;h2&gt; Configurations in RSpec: &lt;/h2&gt;
-&lt;p&gt;The four Configurations that I plan on covering are: 
-  1.) Run Tests at Random
-  2.) Show Top 10 Slowest Tests
-  3.) Find a Single Failure
-  4.) Run a Particular Test&lt;/p&gt;
-
-&lt;p&gt;You can set and save these configurations on your computer or you can ship them with code you might push to GitHub. For the purposes of this blog I am just going to show how to call these without saving them locally so you don’t have to make any changes to your environment or affect anyones settings in their personal enviornment by forking your code.&lt;/p&gt;
-
-&lt;h3&gt;Run Tests at Random&lt;/h3&gt;
-&lt;p&gt;In order to run tests at random you can traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rspec --order random
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This will run all your tests at random. Why would this be helpful? Well, lets say you have many tests and you want to insure that their order doesn’t play a role on whether or not they pass or fail, that would make this tool helpful.&lt;sup&gt; 1 &lt;/sup&gt;&lt;/p&gt;
-
-&lt;h3&gt;Show Top 10 Slowest Tests&lt;/h3&gt;
-&lt;p&gt;In order to show the top 10 slowest tests you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rspec --profile
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This will obviously give you a list of your top 10 slowest tests. If there is one thing I have learned is that tests should be fast! &lt;sup&gt; 2 &lt;/sup&gt; Tests should be fast so that you run them and run them often, whereas if you have very slow tests, you are less likely to run them all. Sometimes it is good to go back and see what you can do to allow your tests to run faster.&lt;/p&gt;
-
-&lt;h3&gt;Find a Single Failure&lt;/h3&gt;
-&lt;p&gt;In order to find a single failure you can once again traverse to the directory that is holding your .rspec file that you initiated. Once there you can run the command:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rspec --fail-fast
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This will quickly run and find a single failure. This is helpful if you have many tests and you just want to deal with them one at a time. Really nothing more to it…moving on.&lt;/p&gt;
-
-&lt;h3&gt;Run a particular test&lt;/h3&gt;
-&lt;p&gt;Now, here is a tool you may come to love as much as I have. When it comes to trouble shooting sometimes you just need to test a specific test where this little one comes in handy. You can do this by typing in the name of the rspec file followed by the first line your test is on. In order to do this you need to be in the directory where your test file is or you can write out the path. Here is an example of a rspec file called “car_spec” while already traversing into the spec directory:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rspec car_spec.rb:7
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Notice the rspec call, then the file name, followed by the line number after the colon. Once again, a great way to test a specific test in your long list of tests.&lt;/p&gt;
-
-&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt; Skoglund, Kevin. (2015, February 5). www.Lynda.com - Ruby: Testing with RSpec: Configuration .Retrieved from https://www.lynda.com/Ruby-tutorials/Configuration/183884/371434-4.html&lt;/p&gt;
-
-&lt;p&gt;&lt;sup&gt; 2 &lt;/sup&gt; Haines, Corey. (2014, June 4). “Four Rules of Simple Design”. LeanuPub Publishing 2014&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: Using RSpec for testing is absoultely amazing for a complete beginner. I’ve personally dabbled in testing with Java, which was a bit rough, but I have to say that learning RSpec is super straightforward and the way RSpec reads is incredibly beautiful! Besides, reading RSpec in your favorite editor, testing results in the terminal can also read beautifully. The best part, you can customize how your tests look in the terminal through configurations. There is a list of RSpec configurations you can use, but I just want to talk about four of them that I recently learned about from Kevin Skoglund’s, “Ruby: Testing with RSpec - Configurations” video. 1</summary></entry></feed>
+&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt; Haines, Corey. (2014, June 4). “Four Rules of Simple Design”. LeanuPub Publishing 2014&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: My mentor happen to share Uncle Bob’s blog post “Test First,” which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, “Understanding the Four Rules of Design”and he too describes the importance of tests as they pertain to software design. 1 These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.</summary></entry></feed>
