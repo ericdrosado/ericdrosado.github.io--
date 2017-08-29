@@ -1,5 +1,224 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-08T11:36:39-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
-</subtitle><entry><title type="html">Understanding This In Javascript</title><link href="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html" rel="alternate" type="text/html" title="Understanding This In Javascript" /><published>2017-08-07T00:00:00-05:00</published><updated>2017-08-07T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/07/understanding-this-in-javascript</id><content type="html" xml:base="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html">&lt;h2&gt; Intro &lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-28T21:32:47-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
+</subtitle><entry><title type="html">An Introduction To Shell Scripting With Ruby</title><link href="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html" rel="alternate" type="text/html" title="An Introduction To Shell Scripting With Ruby" /><published>2017-08-28T00:00:00-05:00</published><updated>2017-08-28T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby</id><content type="html" xml:base="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;As an apprentice at 8th Light, there are plenty of opportunities to be exposed to a wide variety of tools. Fairly recently I and a few other apprentices were introduced to shell scripting utilizing Bash. I must admit that a great deal of the information went over my head, but I did manage to get my feet wet in the world of shell scripting with Ruby. This may be a surprise to many, but Ruby has the ability to be very powerful on the command line as well as for scripts. I find that because of Ruby’s readability it is a great language to learn a wide variety of concepts. For example, I am now writing an unbeatable javascript tic-tac-toe game, and I have found that examples in Ruby have helped my comprehension of the Mini-Max algorithm. Ruby has served as an incredible bridge for difficult concepts, and when I found out that Ruby could be used as a shell scripting tool, I couldn’t resist to try.&lt;/p&gt;
+
+&lt;h2&gt; Ruby on the Command Line &lt;/h2&gt;
+&lt;p&gt;When it comes to scripting on the command line lets start with the most basic concept, how to execute a command on the command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ruby -e 'puts &quot;Hello World!&quot;'
+  Hello World
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Using the ‘-e’ command coupled with the ‘ruby’ call, you can run a wide variety of Ruby. You could also run multiple commands using multiple ‘-e’ commands or a ‘;’ in between commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ruby -e 'puts &quot;Hello World!&quot;' -e 'puts &quot;Hi!&quot;'
+  Hello World!
+  Hi!
+
+  $ ruby -e 'puts &quot;Hello World!&quot;; puts &quot;Hi!&quot;'
+  Hello World!
+  Hi!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Reading Files&lt;/h3&gt;
+&lt;p&gt;Once I was able to do a few simple commands, I looked for ways to read documents. The next useful command I will introduce is ‘ARGF’ is a stream that can be used for reading STDIN and files passed as arguments. Lets pretend we have a simple text file called ‘birthday.txt’ that has the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  1 Happy Birthday to you,
+  2 Happy Birthday to you,
+  3 Happy Birthday dear Eric,
+  4 Happy Birthday to you!
+  5 How Old are you now,
+  6 How Old are you now,
+  7 How Old are you now,
+  8 How Old are you now!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here I can read a specific line using the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ruby -e 'puts ARGF.readlines[0]' birthday.txt
+  Happy Birthday to you,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, the first line of the text will be pulled from birthday.txt and displayed. You could also grab the first ‘n’ amount of lines or last ‘n’ amount of lines:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ruby -e 'puts ARGF.readlines.first(2)' birthday.txt
+  Happy Birthday to you,
+  Happy Birthday to you,
+
+  $ruby -e 'puts ARGF.readlines.last(5)' birthday.txt
+  Happy Birthday to you!
+  How Old are you now,
+  How Old are you now,
+  How Old are you now,
+  How Old are you now!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Computing Word Frequency&lt;/h3&gt;
+&lt;p&gt;Lets take a deeper dive with our new found skills and see if we can compute the frequency in which a word appears in a given text. Before I do that, let me explain a few new commands. The flag -n is used to loop through your document, line by line, in the style of ‘while gets; &lt;your script=&quot;&quot;&gt;; end'. There is also the flag -a which is used to auto split each word found in a line. Then we have the global variable $F, which receives output from the the &quot;split&quot; command. Lets take this knowledge and dissect the following commands:&lt;/your&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ruby -n -a -e 'BEGIN { words = Hash.new(0) }' \
+  -e '$F.each { |w| words[w] += 1 }' \
+  -e 'END { words.select {|k,v| v &amp;gt; 6}.sort_by { |k,v| [-v, k] }.each { |k,v| puts &quot;#{k} - #{v}&quot; } }' \
+  birthday.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first command creates a new hash. The next command adds one to each occurrence of a particular word. The last command sorts it in descending order.&lt;/p&gt;
+
+&lt;p&gt;The result that should return is:
+      you - 7&lt;/p&gt;
+
+&lt;p&gt;This is so because in my third command I only wanted words that appeared greater than 6 times.&lt;/p&gt;
+
+&lt;h3&gt;Creating a Script&lt;/h3&gt;
+&lt;p&gt;Now that I had a little know how, I wanted to create my first script using the previous command. The result is as follows:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  1 #!/usr/bin/env ruby
+  2
+  3 input = ARGV[0]
+  4 words = Hash.new(0)
+  5 word = File.open( input ){ |f|  f.read.split }
+  6 word.each {|w| words[w] += 1 }
+  7 words.select {|k,v| v &amp;gt; 2}.sort_by { |k,v| [-v, k] }.each { |k,v| puts &quot;#{k} - #{v}&quot; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, if I wanted to use this script, which I called ‘sample_script.rb’ I could do the following on the command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ chmod +x sample_script.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This makes the script executable. Then I can run it, with the parameter that I would like to push through in the ARGV array.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ sample_script.rb birthday.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Simply put, I am calling my script and passing my birthday.txt document as a parameter. The document ‘birthday.txt’ is passed through and opened in line 5. In the end the script runs, exactly like the previous commands I ran on the command line, but now all I have to do is call my script as opposed to retyping or creating an alias for the previous commands.&lt;/p&gt;
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Shell scripting can be a bit difficult at first, but if you want to create a few commands you can run on the fly and potentially share these scripts with friends and colleagues, I highly recommend shell scripting, especially with Ruby.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro As an apprentice at 8th Light, there are plenty of opportunities to be exposed to a wide variety of tools. Fairly recently I and a few other apprentices were introduced to shell scripting utilizing Bash. I must admit that a great deal of the information went over my head, but I did manage to get my feet wet in the world of shell scripting with Ruby. This may be a surprise to many, but Ruby has the ability to be very powerful on the command line as well as for scripts. I find that because of Ruby’s readability it is a great language to learn a wide variety of concepts. For example, I am now writing an unbeatable javascript tic-tac-toe game, and I have found that examples in Ruby have helped my comprehension of the Mini-Max algorithm. Ruby has served as an incredible bridge for difficult concepts, and when I found out that Ruby could be used as a shell scripting tool, I couldn’t resist to try.</summary></entry><entry><title type="html">The Test Automation Pyramid</title><link href="http://localhost:4000/2017/08/20/the-test-automation-pyramid.html" rel="alternate" type="text/html" title="The Test Automation Pyramid" /><published>2017-08-20T00:00:00-05:00</published><updated>2017-08-20T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/20/the-test-automation-pyramid</id><content type="html" xml:base="http://localhost:4000/2017/08/20/the-test-automation-pyramid.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;I just finished reading Robert Martin’s (Uncle Bob), “The Clean Coder.” It is pretty much a reflections on his career and a means of him distilling his experience into chapters of information on what lead him to be a successful professional. In this post I wanted to take an opportunity to write about a concept that Martin brings up in Chapter 8: Testing Strategies. Martin argues that in order to be a true professional, you should be kind to those who work in QA, and minimize the issues/bugs that QA finds in your code. In order to successfully do this, Martin discusses how a Professional Development Team should go about implementing, what he calls “The Test Automation Pyramid.” The pyramid contains the following: Unit Tests; Component Tests; Integration Tests; System Tests; Exploratory Tests. In this post I’ll write about each portion of the pyramid and what it pertains to.&lt;/p&gt;
+
+&lt;h2&gt; Unit Tests &lt;/h2&gt;
+&lt;p&gt;As developers or in my case, future developer, we should all be familiar with the unit test. The goal of these tests is to test the functionality of our code at the lowest level. As good practice, developers should write these tests before writing their code. The benefit of writing the tests first allow you to think simply about the functionality of your future code. You will also find that you write cleaner code by writing these tests first.&lt;/p&gt;
+
+&lt;h2&gt; Component Tests &lt;/h2&gt;
+&lt;p&gt;These tests are written for individual components of the system. The idea is to take a single component of your code and test it by passing input data into the component and gather output data that matches your intentions. Component tests are usually written by those in QA with the assistance of developers. A great majority of the tests focus on happy-path situations and alternate-path situations. All un-happy path cases should be done during Unit Tests.&lt;/p&gt;
+
+&lt;h2&gt; Integration Tests &lt;/h2&gt;
+&lt;p&gt;These tests, test larger systems. The goal is to take multiple components and test the way they interact with each other. The goal is to see how well these components are “choreographed” when it comes to running them together, while mocking or doubling other components. These tests are typically written by architects or lead designers. These tests insure that the architecture of the system is sound.&lt;/p&gt;
+
+&lt;h2&gt; System Tests &lt;/h2&gt;
+&lt;p&gt;System Tests are considered the “Ultimate Integration Test,” as they test that the system has been “wired” up correctly and it’s parts interoperate as expected.&lt;/p&gt;
+
+&lt;h2&gt; Exploratory Tests &lt;/h2&gt;
+&lt;p&gt;Exploratory tests are tests where developers begin to interact with the system in hopes of discovering any bug or potential issues. This is an all hands on deck affair where the system is scrutinized to the fullest extent.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;Through my experience at 8th Light I have seen the importance of testing. It is clear that testing is more than a luxury. Every team should invest their time and effort into developing workers with good testing habits to insure the success of the development team as well as the company as a whole.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro I just finished reading Robert Martin’s (Uncle Bob), “The Clean Coder.” It is pretty much a reflections on his career and a means of him distilling his experience into chapters of information on what lead him to be a successful professional. In this post I wanted to take an opportunity to write about a concept that Martin brings up in Chapter 8: Testing Strategies. Martin argues that in order to be a true professional, you should be kind to those who work in QA, and minimize the issues/bugs that QA finds in your code. In order to successfully do this, Martin discusses how a Professional Development Team should go about implementing, what he calls “The Test Automation Pyramid.” The pyramid contains the following: Unit Tests; Component Tests; Integration Tests; System Tests; Exploratory Tests. In this post I’ll write about each portion of the pyramid and what it pertains to.</summary></entry><entry><title type="html">The Future Of The Web Browser</title><link href="http://localhost:4000/2017/08/20/the-future-of-the-web-browser.html" rel="alternate" type="text/html" title="The Future Of The Web Browser" /><published>2017-08-20T00:00:00-05:00</published><updated>2017-08-20T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/20/the-future-of-the-web-browser</id><content type="html" xml:base="http://localhost:4000/2017/08/20/the-future-of-the-web-browser.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;I have recently been involved in creating a JS (javascript) Tic Tac Toe game that is playable in the browser. With that I have experienced the highs and the lows of JS as a language. I can hear the JS die hards now, waiting to raise their pitchforks in rebellion in what I might say next, but to be honest…all of the hardship I have experienced with JS has made me even more motivated to master it. I’ve even joined a local JS MeetUp. But, a part of me wondered, why has nothing come along to take JS’s place? That is until I came across the future of the web … WebAssembly. In this post I would like to discuss WebAssembly and what the future might hold for how we interact with the web.&lt;/p&gt;
+
+&lt;h2&gt; Meet WebAssembly &lt;/h2&gt;
+&lt;p&gt;If you think about our experience with the web it could probably be summed up with the idea of applications, web browsers, and hardware that allows us to connect to the internet in some form (ex. video game consoles). Through these three we can experience the world in different ways. But what if we could combine the three. What if all these experiences could be done directly through a web browser. This is what WebAssembly is trying to tackle.&lt;/p&gt;
+
+&lt;p&gt;Currently, WebAssembly allows developers to take C/C++ applications and compile it into a usable browser format. Get this, it can be done with nearly native speed! Welcome to the future Ladies and Gentlemen. Imagine a web where you can instantly load up your browser and immediately run an application at nearly native speeds.&lt;/p&gt;
+
+&lt;h2&gt; The Future for Web Developers &lt;/h2&gt;
+&lt;p&gt;As mentioned before, WebAssembly has the ability to take C/C++ applications so you can use them on the browser, but the promise is that more statically typed languages will join in the future. Imagine taking your code with the statically typed language of your choice and be able to upload it to the web to be used seamlessly without any issues. The browser would be our window to many interactive experiences where we will no longer need “an app for that.”&lt;/p&gt;
+
+&lt;p&gt;JS has served the internet well, and will probably continue to do so, but with WebAssembly, Web Applications will be taken into a very promising future, where all our online experiences with blend together into a web browser.&lt;/p&gt;
+
+&lt;p&gt;The fact that all major Web Browsers have been involved and plan on using WebAssembly makes me excited to see what the future holds for developers. We can be creators of anything and everything without the current restrictions we have today.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro I have recently been involved in creating a JS (javascript) Tic Tac Toe game that is playable in the browser. With that I have experienced the highs and the lows of JS as a language. I can hear the JS die hards now, waiting to raise their pitchforks in rebellion in what I might say next, but to be honest…all of the hardship I have experienced with JS has made me even more motivated to master it. I’ve even joined a local JS MeetUp. But, a part of me wondered, why has nothing come along to take JS’s place? That is until I came across the future of the web … WebAssembly. In this post I would like to discuss WebAssembly and what the future might hold for how we interact with the web.</summary></entry><entry><title type="html">Understanding The Bind Method</title><link href="http://localhost:4000/2017/08/14/understanding-the-bind-method.html" rel="alternate" type="text/html" title="Understanding The Bind Method" /><published>2017-08-14T00:00:00-05:00</published><updated>2017-08-14T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/14/understanding-the-bind-method</id><content type="html" xml:base="http://localhost:4000/2017/08/14/understanding-the-bind-method.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;The bind method is an incredibly useful tool that allows you to define the context of a method when called again. I know, that sounds like gibberish. How about the MDN’s definition:&lt;/p&gt;
+
+&lt;p&gt;“The bind() method creates a new function that when called, has its ‘this’ keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.”&lt;/p&gt;
+
+&lt;p&gt;Any better? Well, if you are like me an example is worth a thousand words. In this blog we will go over the bind method to see how helpful it can be to use bind especially if you find yourself getting ‘undefined’ in the console when calling a method.&lt;/p&gt;
+
+&lt;h2&gt; Bind Example &lt;/h2&gt;
+&lt;p&gt;The following example has been adapted from user ‘nkron’ on Stack Overflow. Lets say we want to display some information after a button click. First lets define the information that  will be displayed when the button is clicked.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So here we want to create a ‘this’ variable so it can be our parameter for the new function that will be created when bind is called. This way, our ‘this’ variable takes on the same identity. A little more on this later. Next lets setup our click method and lets create a new button object utilizing our method:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' clicked'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OK'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now here, what would you expect your console output to be? Well, if you guessed “OK clicked” you would be correct. We expect that our information would still be bound to Button. But, what happens if we reassign ‘myButton.click’?&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' clicked'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OK'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//&quot;OK clicked&quot;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;looseClick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;looseClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here we have an issue. By not binding myButton.click, the ‘information’ that was attached to this.information would be undefined as it is being expressed globally and no longer through myButton.click. The variable in this case is not defined, thus the console print out would be “undefined clicked”.&lt;/p&gt;
+
+&lt;p&gt;Now lets take a look at what bind can do:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' clicked'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OK'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//&quot;OK clicked&quot;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;looseClick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;looseClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//&quot;undefined clicked&quot;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boundClick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;boundClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What happens here is a binding event where the bind method creates a brand new method and passes whatever the ‘this’ variable is as it’s parameter, which in turn keeps the definition of ‘this.information’ for us. So, we should expect our output in the console to be “OK clicked”.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;Notice how bind can be an incredibly helpful tool when it comes to keeping definitions of variables intact when a method is called from a new object or even if a method is passed from method to method.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro The bind method is an incredibly useful tool that allows you to define the context of a method when called again. I know, that sounds like gibberish. How about the MDN’s definition:</summary></entry><entry><title type="html">Understanding This In Javascript</title><link href="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html" rel="alternate" type="text/html" title="Understanding This In Javascript" /><published>2017-08-07T00:00:00-05:00</published><updated>2017-08-07T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/07/understanding-this-in-javascript</id><content type="html" xml:base="http://localhost:4000/2017/08/07/understanding-this-in-javascript.html">&lt;h2&gt; Intro &lt;/h2&gt;
 &lt;p&gt;In the past I have worked through a variety of tutorials involving Javascript, and I have also made a few small projects along the way. This time around, I found myself particularly interested in the concept of “this,” as it still alludes my understanding completely. This post is an attempt to summarize ‘this’ basics from a great article I found called &lt;a href=&quot;http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/&quot;&gt;“Understand Javascript’s ‘this’ with Clarity, and Master It.”&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt; Think of 'this' as a Pronoun &lt;/h2&gt;
@@ -399,337 +618,4 @@ end
 &lt;p&gt;Here, we abstracted by pulling out a Printer and Location class. We could have also created a printer interface for our Artwork class to handle Artwork specific printing. As mentioned many times before, this type of abstraction will help us greatly as our software grows.&lt;/p&gt;
 
 &lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;Ultimately the biggest takeaway is that you want to prevent yourself from having a single interface that does too much. You want to have multiple interfaces to minimize dependencies on a single class. In the end you and your colleagues will be thankful that you did this from now and into the future.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.</summary></entry><entry><title type="html">The Single Responsibility Principle</title><link href="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html" rel="alternate" type="text/html" title="The Single Responsibility Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/the-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/the-single-responsibility-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. The Single Responsibility Principle states that each class and each method should have a single responsibility. As Uncle Bob would say, “A class should have only one reason to change,” which ultimately means that a class should have responsibility over a single part of functionality in a piece of software. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).&lt;/p&gt;
-
-&lt;h2&gt; SRP Example &lt;/h2&gt;
-&lt;p&gt;I would like to use an example as a means to guide our exploration into SRP. Think of developing software for an art gallery. In the gallery they have a large array of art work that needs some cataloging which gives an art gallery employee the name of the artwork, the artists name, a description of the work, the location of the item in the gallery, and a means of printing the information out. Lets say we put all of these things in a single class to start named Artwork:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    puts title
-  end
-
-  def get_artist artist
-    puts artist
-  end
-
-  def get_description description
-    puts description
-  end
-
-  def get_location location
-    puts location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;After observing this class one might think…not bad, all the information that the curators at the gallery needed are in this class and everything is pretty accessible by calling one of the methods and passing a parameter. Well, not so my friend. There are a few instances where we are violating SRP.&lt;/p&gt;
-
-&lt;p&gt;The first violation may be obvious, which is the fact that we are printing in every single method. Printing in itself has nothing to do with the logic of the artwork. We should be doing one thing and one thing only in each method. If a curator wants a title then he should be able to get the information they need from a call and print it elsewhere. So, how about this:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-  def get_location location
-    location
-  end
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Well, at this point we have pulled the logic of printing out of the methods and placed it into its own method in the Artwork class. This should also raise a red flag. We have now created a method in the class Artwork that has nothing to do with the Artwork as a whole. Artwork is suppose to provide information about the Artwork to the curator and the printing logic should not be considered a part of this class. So perhaps this will be better:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-  def get_location location
-    location
-  end
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now this is much better as we can make calls to printer if the curator needs to print certain information. Our code is now cleaner and offers us great flexibility if something is to be changed later on.&lt;/p&gt;
-
-&lt;p&gt;Well, we are not quite done yet. Can you see something else that we might want to change? Remember, the Artwork class is made to provide information to the curator about the artwork in itself. Is there a method that we can pull from the Artwork class? Yes! That location class could probably move as it provides information about the location of the artwork, but not specific information that would be considered an attribute of artwork. Confused? Think about it this way, the artwork in itself is not dependent on location in order to identify it. The title, the artist name, and the description are attributes of the class and the location could change at any point so it is independent. So perhaps something like this would be better:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-
-class Location
-
-  def get_location location
-    location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Our software now offers great flexbility if something should change and now we have created reuseable classes that our software could utilize as it grows over time.&lt;/p&gt;
-
-&lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;SRP is obviously important when it comes to flexibility of our software. If we think back to our Artwork example, perhaps in the future the curators want to make specific classes of artwork such as paintings, sculptures, and so forth. We are prepared to extend our software because we have made it flexible. We are also able to reuse our printing and location classes for these new classes that are to be added. With SRP we have set ourselves up to develop clean Object Oriented (OO) code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: SRP! The big fish of the SOLID world. It seems to me that out of all of the SOLID principles (Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation , Dependency Inversion) the Single Responsibility Principle (SRP) plays a role/ties all of the principles together. The Single Responsibility Principle states that each class and each method should have a single responsibility. As Uncle Bob would say, “A class should have only one reason to change,” which ultimately means that a class should have responsibility over a single part of functionality in a piece of software. In this post I would like to take an opportunity to explore some details of SRP and why is it important in the grand scheme of Object Oriented Programming (OOP).</summary></entry><entry><title type="html">Open Closed Principle</title><link href="http://localhost:4000/2017/06/16/open-closed-principle.html" rel="alternate" type="text/html" title="Open Closed Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/open-closed-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/open-closed-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;To build off of my SRP blog post, I would like to take the opportunity to explore the Open/Closed Principle of the SOLID Principles of Object Oriented Design. I’m going to refer back to the Art Gallery example that I used in my SRP blog post and build off that example to explore the Open/Closed Principle. The Open/Closed principle states that software should be open for extension and closed for modification. The basic idea is that we shouldn’t want to change code that is tested and works, but instead we want to extend its functionality by building off of it. Lets explore our previous example and see how this applies.&lt;/p&gt;
-
-&lt;h2&gt; Open/Closed Principle Example &lt;/h2&gt;
-&lt;p&gt;Lets return to the art gallery as our curators would like to add some additional functionality to the software we built for them. This is what we have so far:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-
-class Location
-
-  def get_location location
-    location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now, last time we made a few changes to adhere to SRP. We don’t want to change this code in any way that would jeopardize its functionality as we know it works.&lt;/p&gt;
-
-&lt;p&gt;Lets say the curators want to be able to organize the artwork into groups, such as sculptures and paintings and they need similar attributes from artwork such as the title, artist, and description. Well, we can do that using inheritance! We can make additional classes that extend our artwork class and utilize its methods. So here we are extending the functionality (Open) and not disrupting the current functionality (Closed).&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Sculpture &amp;lt; Artwork
-
-end
-
-class Painting &amp;lt; Artwork
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-
-class Location
-
-  def get_location location
-    location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We can now utilize the methods from artwork into our Sculpture and Painting classes as they will inherit them. We have extended our software’s functionality. Our new classes can also use the Printer and Location classes since we pulled them from the Artwork class in the SRP blog post.&lt;/p&gt;
-
-&lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;We have now extended the functionality of our software, but we did not modify our older code. We have followed the Open/Closed principle and now our code is much cleaner for it. If things change in the future, as they tend to do, we can continue to extend the functionality of our code. The Open/Closed Principle is definitely an important piece to clean OO code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: To build off of my SRP blog post, I would like to take the opportunity to explore the Open/Closed Principle of the SOLID Principles of Object Oriented Design. I’m going to refer back to the Art Gallery example that I used in my SRP blog post and build off that example to explore the Open/Closed Principle. The Open/Closed principle states that software should be open for extension and closed for modification. The basic idea is that we shouldn’t want to change code that is tested and works, but instead we want to extend its functionality by building off of it. Lets explore our previous example and see how this applies.</summary></entry><entry><title type="html">Liskov Substitution Principle</title><link href="http://localhost:4000/2017/06/16/liskov-substitution-principle.html" rel="alternate" type="text/html" title="Liskov Substitution Principle" /><published>2017-06-16T00:00:00-05:00</published><updated>2017-06-16T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/16/liskov-substitution-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/16/liskov-substitution-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;In continuing our journey through the SOLID Principles of OOD, I’d like to address the Liskov Substitution Principle. This principle is very straightforward and it allows me an oportunity to build off my Open/Closed Principle post. The Liskov Substitution Principle states that subclasses should have the ability to substitute for their parent classes in a class heirarchy. Let’s look at the Open/Closed example and build off that.&lt;/p&gt;
-
-&lt;h2&gt; Liskov Substitution Principle Example &lt;/h2&gt;
-&lt;p&gt;Last time in the Open/Closed Principle blog post we introduced some new classes and we now have the following:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Sculpture &amp;lt; Artwork
-
-end
-
-class Painting &amp;lt; Artwork
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-
-class Location
-
-  def get_location location
-    location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s not worry about the Printer and Location classes and remove them for now and lets focus on the class hierarchy:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Sculpture &amp;lt; Artwork
-
-end
-
-class Painting &amp;lt; Artwork
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here we have classes that inherit directly from Artwork, but they do not have methods of their own. Let’s say that in the sculpting word there are no such things as titles, but instead they like to call them names instead of titles. This example is a bit of a stretch, but we don’t have a name method in artwork in order for a sculpture to inherit. Perhaps we should motify get_title in sculpture and override it, but that would defeat the purpose of the inheritance.&lt;/p&gt;
-
-&lt;p&gt;Ultimately we have the wrong abstration here, meaning perhaps we need to extend our Artwork class to have artwork with names and another with titles so that sculpture might work. We cannot substitute sculpture into Artwork because of this difference.&lt;/p&gt;
-
-&lt;p&gt;So, that example might be a little hard to swallow. Lets look at another example that is commonly used:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Rectangle
-
-  def get_width
-  end
-
-  def get_height
-  end
-
-end
-
-class Square &amp;lt; Rectangle
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This might not look like a problem, but does it make sense that the Square class should inherit the two methods in Rectangle? No! With a square you don’t need to get a width and height, but just need the length of just one side. Once again, we need another level of abstraction here that can account for Rectangles and one for Squares. Squares cannot substitute in for Rectangles because rectangles have different dimensions. Thus, this breaks Liskov’s Substitution Principle.&lt;/p&gt;
-
-&lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;Liskov’s Substitution Principle can really help with making sense of your class heirarchies. You can make the appropriate abstractions and allow yourself to have clean OO code.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: In continuing our journey through the SOLID Principles of OOD, I’d like to address the Liskov Substitution Principle. This principle is very straightforward and it allows me an oportunity to build off my Open/Closed Principle post. The Liskov Substitution Principle states that subclasses should have the ability to substitute for their parent classes in a class heirarchy. Let’s look at the Open/Closed example and build off that.</summary></entry><entry><title type="html">The Importance And Beauty Of Testing First</title><link href="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html" rel="alternate" type="text/html" title="The Importance And Beauty Of Testing First" /><published>2017-06-02T00:00:00-05:00</published><updated>2017-06-02T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first</id><content type="html" xml:base="http://localhost:4000/2017/06/02/the-importance-and-beauty-of-testing-first.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;My mentor happen to share Uncle Bob’s blog post &lt;a href=&quot;https://8thlight.com/blog/uncle-bob/2013/09/23/Test-first.html&quot;&gt; “Test First,” &lt;/a&gt; which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, &lt;a href=&quot;https://leanpub.com/4rulesofsimpledesign&quot;&gt; “Understanding the Four Rules of Design”&lt;/a&gt;and he too describes the importance of tests as they pertain to software design.&lt;sup&gt; 1 &lt;/sup&gt;  These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.&lt;/p&gt;
-
-&lt;h2&gt; Why Test?&lt;/h2&gt;
-&lt;p&gt;Much of my testing before being introduced to RSpec was focused on writing code and testing outputs on the command line.It worked, but there were many instances where I would hit a snag later down the line, because I didn’t consider certain aspects of how things should and would interact. I’m not saying that this doesn’t happen when you use TDD as a methodology, but TDD does accomplish two very important things. It helps you to think small and it also provides you with some great documentation/specification of what your code is trying to accomplish.&lt;/p&gt;
-
-&lt;p&gt;For me, when it came to writing out an app, my mind would be racing about all the different components that the app would need in order to work. Now, I find that with TDD, if I open up RSpec and begin to write a test for my first method, it allows me to focus on the smaller aspects of my code. For instance, if I were to expect that my method returns a value in the end, well, there is my first test. I would write a test, allow it to fail and then write out the method that would allow my test to pass. This provides a great deal of focus, atleast for me, and alleviates some of the mind racing aspects of, “Oh! I need a method like this” or “What about if I tried this?!” nope… I’m just allowing the tests to steer me where I need to go on an individual method. Scientifically speaking, this is fantastic as your working memory can only hold four things at a time.&lt;/p&gt;
-
-&lt;p&gt;If someone were to send me a large codebase for an app, I would probably get lost in its functionality as I go from method to method. It is a lot to take-in. I’m sure I would eventually figure out how everything worked, but the whole process might be a little easier if the code was followed with some tests. The specs from the test would provide me with enough insight as to what each piece of code is trying to accomplish. Not only that, but if the tests were written well enough, I could probably replicate the code myself, which in itself is absolutely amazing. You could think of your tests as a step by step guide of how to build your app. When you think about it, it’s kinda beautiful.&lt;/p&gt;
-
-&lt;p&gt;Simply put, allow your tests to steer the path of your design to a completed product. Not only will your brain thank you for it, but so will the software crafters around you.&lt;/p&gt;
-
-&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt; Haines, Corey. (2014, June 4). “Four Rules of Simple Design”. LeanuPub Publishing 2014&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: My mentor happen to share Uncle Bob’s blog post “Test First,” which has given me a great perspective on how TDD should be at the steering wheel of our code. I also read Corey Haines’, “Understanding the Four Rules of Design”and he too describes the importance of tests as they pertain to software design. 1 These two readings really get at the heart of what this post will focus on. Lets focus on why testing is an imperative, and why “Testing First” should be a priority for yourself and the software crafters around you.</summary></entry></feed>
+&lt;p&gt;Ultimately the biggest takeaway is that you want to prevent yourself from having a single interface that does too much. You want to have multiple interfaces to minimize dependencies on a single class. In the end you and your colleagues will be thankful that you did this from now and into the future.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.</summary></entry></feed>

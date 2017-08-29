@@ -1,0 +1,84 @@
+<h2> Intro </h2>
+<p>The bind method is an incredibly useful tool that allows you to define the context of a method when called again. I know, that sounds like gibberish. How about the MDN’s definition:</p>
+
+<p>“The bind() method creates a new function that when called, has its ‘this’ keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.”</p>
+
+<p>Any better? Well, if you are like me an example is worth a thousand words. In this blog we will go over the bind method to see how helpful it can be to use bind especially if you find yourself getting ‘undefined’ in the console when calling a method.</p>
+
+<h2> Bind Example </h2>
+<p>The following example has been adapted from user ‘nkron’ on Stack Overflow. Lets say we want to display some information after a button click. First lets define the information that  will be displayed when the button is clicked.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+<span class="nx">Button</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">information</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">=</span> <span class="nx">information</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p>So here we want to create a ‘this’ variable so it can be our parameter for the new function that will be created when bind is called. This way, our ‘this’ variable takes on the same identity. A little more on this later. Next lets setup our click method and lets create a new button object utilizing our method:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">Button</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">information</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">=</span> <span class="nx">information</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Button</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">click</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">+</span> <span class="s1">' clicked'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Button</span><span class="p">(</span><span class="s1">'OK'</span><span class="p">);</span>
+<span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+
+</code></pre>
+</div>
+
+<p>Now here, what would you expect your console output to be? Well, if you guessed “OK clicked” you would be correct. We expect that our information would still be bound to Button. But, what happens if we reassign ‘myButton.click’?</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">Button</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">information</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">=</span> <span class="nx">information</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Button</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">click</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">+</span> <span class="s1">' clicked'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Button</span><span class="p">(</span><span class="s1">'OK'</span><span class="p">);</span>
+<span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span> <span class="c1">//"OK clicked"</span>
+
+<span class="kd">var</span> <span class="nx">looseClick</span> <span class="o">=</span> <span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">;</span>
+<span class="nx">looseClick</span><span class="p">();</span>
+
+</code></pre>
+</div>
+
+<p>Here we have an issue. By not binding myButton.click, the ‘information’ that was attached to this.information would be undefined as it is being expressed globally and no longer through myButton.click. The variable in this case is not defined, thus the console print out would be “undefined clicked”.</p>
+
+<p>Now lets take a look at what bind can do:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">Button</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">information</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">=</span> <span class="nx">information</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Button</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">click</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">information</span> <span class="o">+</span> <span class="s1">' clicked'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Button</span><span class="p">(</span><span class="s1">'OK'</span><span class="p">);</span>
+<span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span> <span class="c1">//"OK clicked"</span>
+
+<span class="kd">var</span> <span class="nx">looseClick</span> <span class="o">=</span> <span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">;</span>
+<span class="nx">looseClick</span><span class="p">();</span> <span class="c1">//"undefined clicked"</span>
+
+<span class="kd">var</span> <span class="nx">boundClick</span> <span class="o">=</span> <span class="nx">myButton</span><span class="p">.</span><span class="nx">click</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">myButton</span><span class="p">);</span>
+<span class="nx">boundClick</span><span class="p">();</span>
+
+</code></pre>
+</div>
+
+<p>What happens here is a binding event where the bind method creates a brand new method and passes whatever the ‘this’ variable is as it’s parameter, which in turn keeps the definition of ‘this.information’ for us. So, we should expect our output in the console to be “OK clicked”.</p>
+
+<h2> Conclusion </h2>
+<p>Notice how bind can be an incredibly helpful tool when it comes to keeping definitions of variables intact when a method is called from a new object or even if a method is passed from method to method.</p>
