@@ -1,5 +1,220 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-28T21:32:47-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
-</subtitle><entry><title type="html">An Introduction To Shell Scripting With Ruby</title><link href="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html" rel="alternate" type="text/html" title="An Introduction To Shell Scripting With Ruby" /><published>2017-08-28T00:00:00-05:00</published><updated>2017-08-28T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby</id><content type="html" xml:base="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html">&lt;h2&gt; Intro &lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-13T12:58:13-05:00</updated><id>http://localhost:4000/</id><title type="html">On the Path to Software Craftsmanship</title><subtitle>Follow along on a journey of one 8th Light Student Aprentice's path to becoming a Software Craftsman.
+</subtitle><entry><title type="html">An Explanation Of The Minimax Algorithm</title><link href="http://localhost:4000/2017/09/12/an-explanation-of-the-minimax-algorithm.html" rel="alternate" type="text/html" title="An Explanation Of The Minimax Algorithm" /><published>2017-09-12T00:00:00-05:00</published><updated>2017-09-12T00:00:00-05:00</updated><id>http://localhost:4000/2017/09/12/an-explanation-of-the-minimax-algorithm</id><content type="html" xml:base="http://localhost:4000/2017/09/12/an-explanation-of-the-minimax-algorithm.html">&lt;h2&gt; Intro &lt;/h2&gt;
+&lt;p&gt;I’ve been working on a javascript based tic-tac-toe game, and I was tasked with making an unbeatable AI utilizing the mini-max algorithm. In the past I’ve tried to create a “hard coded” unbeatable AI that accounted for every possible scenario. In reality the code was incredibly complex and admittedly…not pretty. In this post I plan on taking my Javascript mini-max code and walking through how the mini-max algorithm works.&lt;/p&gt;
+
+&lt;p&gt;Since I will only be focusing on my mini-max function I will not be including all my code here. If you would like to see the rest of my code please visit my &lt;a href=&quot;http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/&quot;&gt;repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt; My Mini-Max Function &lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;minimax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAvailableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;winConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isGameOver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;spot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;minimax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2&gt; The Break Down &lt;/h2&gt;
+&lt;p&gt;I want to attempt to explain what mini-max is trying to accomplish in order to provide some context. The goal of the algorithm is to cycle through a game board and essentially play every possible game and score until the ending game conditions. The reason why they call it “mini-max” is because the computer is trying to maximize its outcome and minimize the opponents outcome. By “outcomes” I’m  referring to scores given to end of game states: a win, a loss, or a tie. Every game is scored where the computer scores it’s wins positively (with a positive number) and scores it’s opponent’s wins negatively (with a negative number). The reason why it does this is so that it can choose a game path with a positive outcome which could lead to a win or tie. To provide a quick example let’s take a look at the game below, which is nearing it’s end:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_one.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here, it is our Human Players turn, X. Given that X would like to still be able to win he has two options he can choose, which are the top middle and the bottom middle positions. Let’s say X chooses the top middle position.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_two.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here, our computer, O, has two options. It can either block a potential X win by choosing the bottom middle position or choose the bottom right position, which effectively does nothing for O. Now, if mini-max was used during this game it would have two scenarios to play through. in this case it would give a score of “0” for a tie with the human player and a arbitrary negative score, I used “-10” in my game, for a human player win. Remember that the computer wants to minimize the potential player win outcome, which would be represented by a negative score. So, mini-max would play through both these scenarios and score. Here is the first scenario:&lt;/p&gt;
+
+&lt;h5&gt; Computer Moves &lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_three.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h5&gt; Human Player Moves &lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_four.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h5&gt;Final Score: 0 &lt;/h5&gt;
+
+&lt;p&gt;Now to be clear mini-max will make moves for both the computer and the human player to determine the best outcome for the computers sake. For this particular scenario, since an end of game state has been reached, tie game, it will score this situation as a 0 since it is a tie.&lt;/p&gt;
+
+&lt;p&gt;How about if it went through the second scenario:&lt;/p&gt;
+
+&lt;h5&gt; Computer Moves &lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_five.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h5&gt; Human Player Moves &lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_six.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h5&gt;Final Score: -10 &lt;/h5&gt;
+
+&lt;p&gt;Now this ending game state yields a -10 score. Not good for the computer! The computer wants a positive score, which would symbolize a computer win. Now there is no +10 score, which would symbolize a computer win in this scenario, but the highest score possible in this case is a 0 since 0 &amp;gt; -10. Thus, mini-max will place its symbol in the bottom center position to not only block the human player, but to get to the tie as opposed to the X win.&lt;/p&gt;
+
+&lt;p&gt;This is obviously a small piece of what mini-max does. If the scenario was different and O had an opportunity to win it would choose that route with a +10 score, which is equal and opposite of the X win score. As you could probably already imagine it would be incredibly difficult/time consuming to walk through an entire game. So, instead lets walk through the code in little chunks and discuss what the algorithm is doing.&lt;/p&gt;
+
+&lt;h4&gt; Obtaining Available Spots on the Board &lt;/h4&gt;
+&lt;p&gt;On our first stop, let’s take a look at the first line of code. The goal of my first line of code is to take my game board, which is an array, and find any available spaces on the board. All those spots are stored in an array called “availableSpots.”&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAvailableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In our earlier example you might be able to see why a list of available spots might be important. The AI has to have the ability to evaluate every move that is available to the AI, thus the AI needs to know which spots are available for marker, “O”, placement.&lt;/p&gt;
+
+&lt;h4&gt; Scoring an End of Game State &lt;/h4&gt;
+&lt;p&gt;As we saw in our example, we have to have the ability to score the end of every game so we know the potential result of a particular move. Now if you think of game play as a tree of many options you might envision an image like the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt;
+&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_seven.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this image we are nearing the end of the game. Notice that each game is labeled with a letter, A, B, C, etc. I will use these letters as a guide down the tree for multiple examples.&lt;/p&gt;
+
+&lt;p&gt;So, let’s look at the code:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;winConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isGameOver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Not much can be determined from this piece of code alone, but let’s look at the conditional in the “if” statement first. What “self.winCOnditions.isGameOver(gameBoard)” is doing is it is looking for end of game states. So, if the game ends in a win or a tie it returns true, thus moving down to the scoring process. Since, my scoring is not visible in this algorithm, I’ll post it below:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getScore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;winConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isWinner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;winConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isWinner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;winConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isTie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For continued simplicity let’s ignore the “depth” variable for now as it is more of a means to optimize/manipulate the way your AI will choose a space. If you are interested in making an AI with a variety of skill levels, take an opportunity to research how “depth” can be utilized.&lt;/p&gt;
+
+&lt;p&gt;The first line is used as a means for me to switch the marker of the player.&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I had to switch the marker because the player that has made the last move is the opposite marker. Confusing? I’ll come back to this in a bit, but know that the player that made the last move and won is opposite of the marker that is entering the function. Now we have an if…else if…else if statement. Each piece of this statements checks to see if someone has won or if there is a tie. For example the code below is saying “If the marker is equal to O and there is a winner then return an object with a score of 10 - depth.” So, as I mentioned before, let’s ignore depth and treat this as a score of just “10.” As we move down we see “if X wins apply a score of depth - 10,” which we will represent as “-10.” The last part of the statement searches for a tie game and returns a score of “0.”&lt;/p&gt;
+
+&lt;p&gt;Cool, now that we know that O wins are scores as +10, X wins are scored as -10, and ties are scored as 0, we can continue to dive deeper.&lt;/p&gt;
+
+&lt;h4&gt; Big, Bad, Recursion! &lt;/h4&gt;
+&lt;p&gt;This is usually the piece of mini-max that most people will trip up on. Are goal is to allow the AI to play every possible game and return a score for the end of game states for each branch of the game.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2017-09-12-an-explanation-of-the-minimax-algorithm/example_seven.png&quot; alt=&quot;&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at our game tree. At the top of the tree we have a game board with 3 available spots and it is X’s turn. I know that we have been talking about X = player and O = computer, but let’s switch that up for this example (Sorry, but this image was too good to pass up on!). So, lets walk through the code:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;spot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComputerLogic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;minimax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;depth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moveValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first line of code I have created an array called moves that stores score objects as well as the position objects that lead to that particular score. Then we begin a for loop. This loop is incredibly important as it allows the AI to go through the availableSpots array and places a marker on each spot. So, the first spot is chosen and a marker is placed on a copy of the current game board.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;gameBoardCopy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;availableSpots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And now the magic happens! The next line of code is hands down one of the most important parts of this whole process. This part calls back the mini-max method and goes through the whole method again, while keeping note of the previous state in memory. What does that mean? Well, lets say the computer, who is now X, if you recall me mentioning that earlier, chooses spot number 8 represented by diagram “C” in the tree. That “C” state of the board will wait for all of the moves below to be played and it ultimately waits until an end state is reached and returns a score. While it is “waiting,” all those moves are using the recursion to play out each scenario below diagram C. It is taking turns for both the human and the computer player. Notice on the left side of the diagram it says X’s turn, O’s turn and continues all the way down. So if we go down the tree for Diagram C there are two potential end states, I, which is a win for X (score: +10) and J, which is a tie (score: 0). Both of these scores will be returned and stored in my moves array. You may need to review this process a couple times, but just think of the recursion going and going and going, until it reaches an end state and comes back up, where the score is stored and then moves on in the code.&lt;/p&gt;
+
+&lt;h4&gt; Return the Best Move &lt;/h4&gt;
+
+&lt;p&gt;The code after the recursion is just a means to loop through all of the scores scored in the array and return it. Now, it is kinda weird to think about, but the board states under diagram C where we started have already gone through this code. Now it is Diagram C’s turn to organize the scores that were returned to it.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;marker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now notice that there are two ways to organize scores. There is a way to organize “O” scores and “X” scores. Now, I represented my computer as “O” so notice that if marker === “O”, I am looking for the highest positive score and for the human player I am looking for the most negative score.&lt;/p&gt;
+
+&lt;p&gt;Once my scores are organized the best move is returned with the following:&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;moves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bestMove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In the computers case, the best move would yield the largest positive score so that position that lead to the positive score is what the computer will use to make a move.&lt;/p&gt;
+
+&lt;h2&gt; Conclusion &lt;/h2&gt;
+&lt;p&gt;I have to preface all this with mini-max is not easy to learn. If you don’t get it now, you eventually will and when you do it will become very clear as to what is going on. I worry that I may have glanced over certain aspects that I may have thought were obvious, but they are only obvious to me now that I understand the algorithm. If you have any questions or need help, please feel free to reach out and I would be happy to help!&lt;/p&gt;
+
+&lt;p&gt;&lt;sup&gt; 1 &lt;/sup&gt; Definitions. (2003). Gamesman. Retrieved from https://people.eecs.berkeley.edu/~ddgarcia/teaching/CS3Gamesman/assignment/definitions.html&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro I’ve been working on a javascript based tic-tac-toe game, and I was tasked with making an unbeatable AI utilizing the mini-max algorithm. In the past I’ve tried to create a “hard coded” unbeatable AI that accounted for every possible scenario. In reality the code was incredibly complex and admittedly…not pretty. In this post I plan on taking my Javascript mini-max code and walking through how the mini-max algorithm works.</summary></entry><entry><title type="html">Reflections On Being A Student Apprentice</title><link href="http://localhost:4000/2017/08/28/reflections-on-being-a-student-apprentice.html" rel="alternate" type="text/html" title="Reflections On Being A Student Apprentice" /><published>2017-08-28T00:00:00-05:00</published><updated>2017-08-28T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/28/reflections-on-being-a-student-apprentice</id><content type="html" xml:base="http://localhost:4000/2017/08/28/reflections-on-being-a-student-apprentice.html">&lt;h2&gt;My Past&lt;/h2&gt;
+&lt;p&gt;As a former educator I have been on the teaching side of things for about 6 years. When I left education to become a software crafter I found that time has served me well as a learner. I am more focused, I have the ability to comprehend new information with a greater amount of ease, and I find myself in love with learning.&lt;/p&gt;
+
+&lt;p&gt;When I was a student in High School as well as in College, I found myself for a lack of better words, annoyed with the status quo. Education was more about rote learning than finding new experiences and seeking enjoyment and pleasure in learning.&lt;/p&gt;
+
+&lt;p&gt;When I left graduate school to become a High School educator, I was determined to not be like those other teachers and create great learning environments for my students. I will admit that the task was not easy and it was very easy to become a ‘lazy’ teacher who’s main focus was to just lecture and expect students to learn. I will say that I was not remotely close to perfecting my teaching craft, but I do believe I made the best effort to be different than the status quo.&lt;/p&gt;
+
+&lt;p&gt;There is a network of Schools called Big Picture Learning Schools, where an emphasis is placed on learning through real world experiences. Student are released out into the neighborhood to seek out internships throughout the year and actually go to these internships during the school day. This concept, struck me as a viable option to educate youth. This is where the concept of an apprenticeship and my introduction to 8th Light began.&lt;/p&gt;
+
+&lt;h2&gt;The Apprenticeship Model&lt;/h2&gt;
+&lt;p&gt;I remember thinking to myself that a traditional lecture/rote learning model would not help me move into a new career in software development. I knew that an apprenticeship would yield greater gains under the tutelage of a mentor. Lucky for me, I was given two!&lt;/p&gt;
+
+&lt;p&gt;What I find interesting about the apprenticeship model at 8th Light is there is both a hands on and hands off approach. You may be saying…that makes no sense, but let me explain.&lt;/p&gt;
+
+&lt;h3&gt;Hands Off&lt;/h3&gt;
+&lt;p&gt;At 8th Light you as the apprentice are the sole person responsible for your progress. You get as much as you want out of the program based upon how much you put in. For example, I found myself often using my library card to checkout ebooks pertaining to the project at hand. My mentors did not ask me to do this, but it was something I needed to do to succeed.&lt;/p&gt;
+
+&lt;h3&gt;Hands On&lt;/h3&gt;
+&lt;p&gt;One of the trickiest parts to manage is the interactions you have with your mentor. Your mentor is not your personal teacher/tutor. Your mentor also has a full time job to tend to. So what is the best way to get the needed “hands on” you might need? Simply put, you have to be prepared to ask for help. I struggled with this concept early on, most likely due to the fact that I didn’t want to bother my mentors with additional work, but I had to realize that they signed up to be mentors for a reason. So, with that, communication is key, and with that communication you will get the hands on help you need to succeed.&lt;/p&gt;
+
+&lt;h2&gt;Where to go From Here&lt;/h2&gt;
+&lt;p&gt;As I reflect on my experience I have found that I had some great gains as a learner, but also some significant failures as a communicator, but in the grand scheme of things, it is best to make these mistakes early and often to avoid making these mistakes in the future. I must admit there were times that were a bit shaky, but I keep reminding myself that having a growth mindset, is the only way I will grow as a learner and a professional. This experience has struck at the heart of some of my weaknesses that I experience as a young adult all the way to a professional educator. It has made me aware of some of the things I need to work on, and with that I look forward to what is ahead.&lt;/p&gt;</content><author><name></name></author><summary type="html">My Past As a former educator I have been on the teaching side of things for about 6 years. When I left education to become a software crafter I found that time has served me well as a learner. I am more focused, I have the ability to comprehend new information with a greater amount of ease, and I find myself in love with learning.</summary></entry><entry><title type="html">An Introduction To Shell Scripting With Ruby</title><link href="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html" rel="alternate" type="text/html" title="An Introduction To Shell Scripting With Ruby" /><published>2017-08-28T00:00:00-05:00</published><updated>2017-08-28T00:00:00-05:00</updated><id>http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby</id><content type="html" xml:base="http://localhost:4000/2017/08/28/an-introduction-to-shell-scripting-with-ruby.html">&lt;h2&gt; Intro &lt;/h2&gt;
 &lt;p&gt;As an apprentice at 8th Light, there are plenty of opportunities to be exposed to a wide variety of tools. Fairly recently I and a few other apprentices were introduced to shell scripting utilizing Bash. I must admit that a great deal of the information went over my head, but I did manage to get my feet wet in the world of shell scripting with Ruby. This may be a surprise to many, but Ruby has the ability to be very powerful on the command line as well as for scripts. I find that because of Ruby’s readability it is a great language to learn a wide variety of concepts. For example, I am now writing an unbeatable javascript tic-tac-toe game, and I have found that examples in Ruby have helped my comprehension of the Mini-Max algorithm. Ruby has served as an incredible bridge for difficult concepts, and when I found out that Ruby could be used as a shell scripting tool, I couldn’t resist to try.&lt;/p&gt;
 
 &lt;h2&gt; Ruby on the Command Line &lt;/h2&gt;
@@ -472,150 +687,4 @@ Prompter - Holds a list of different prompts that can be used in the game
 &lt;p&gt;So, you may have discovered why I have designed my interface in this fashion after reading about my individual classes. The goal was to connect classes that related to each other. Classes that are closely related by functionality should be closer together because they become easier to access, which in turn minimizes coupling, and the breaking of Demeter’s Law. Validator is close to Game as many aspects of the game must be validated, such as: “Is this letter that was chosen found in the word?” IO and Prompter are near GameView because they deal with what is displayed on the screen for the users. This layout now optimizes my program and minimizes long chains of coupling. Also, in the future, if I need to add additional functionality, it won’t be thrown into a web of messages across classes, but instead can be strategically placed.&lt;/p&gt;
 
 &lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;I highly recommed Sandi Metz’s POODR book! It really game me insight into good Object Oriented Design. I’m almost positive that my current design is not the best design, but it is a start. With more experience, comes a better understanding of design practices.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: The idea of software design is a fairly new concept to me. I knew the basics, such as DRY, but in reality I was still creating potential issues in the console applications that I created. Now, being fairly new to software development I’ve noticed that you don’t really run into many ideas and practices of design in tutorials. I suspect that it is because a good majority of the projects you create or work on during tutorials are so small in code length. You don’t have to worry about design and interfaces, because you are simply learning the language. In this post I would like to share a bit of my current app and talk about some of the changes I made after reading Sandi Metz’s “POODR” book.</summary></entry><entry><title type="html">Dependency Inversion Principle</title><link href="http://localhost:4000/2017/06/20/dependency-inversion-principle.html" rel="alternate" type="text/html" title="Dependency Inversion Principle" /><published>2017-06-20T00:00:00-05:00</published><updated>2017-06-20T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/20/dependency-inversion-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/20/dependency-inversion-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;If you have been following along in my journey through the SOLID principles, well, you’ve made it to the last principle, Dependency Inversion Principle (DIP). The DIP focuses on the importance of abstraction in creating software flexibility. Ultimately you want to depend on class abstractions as opposed to class concretions. What does this all mean? Lets go over it with an example.&lt;/p&gt;
-
-&lt;h2&gt; Dependency Inversion Principle Example &lt;/h2&gt;
-&lt;p&gt;Let’s continue to use our Art Gallery example and lets say that our Artwork class begins to become more complex with time and now there are lower level classes that it relies on, such as a wide variety of different types of paintings of specific eras. Let’s start with a MiddleAgesPainting Class.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def initialize()
-    @middle_ages_painting = MiddleAgesPainting.new
-  end
-
-  def get_description
-    @middle_ages_painting.description
-  end
-
-end
-
-class MiddleAgesPainting
-
-  def get_description
-    #description
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;So to go over the ruby above, what we have is a situation where our higher level class Artwork is dependent on its lower level counterpart when it comes to obtaining a description for MiddleAgesPainting. This seems fine, but what happens if we need to include a EarlyAndHighRenaissancePainting class. Now we are starting to add a bit of complication to our code that could continue to get messy with each additional era class that pops up. This is a violation of the DIP. What we want to do is depend on an abstraction of description as to not clutter our Artwork class. How do we do that? Let’s take a look:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def initialize(middle_ages_painting, early_and_high_renaissance_painting )
-    @middle_ages_painting = middle_ages_painting
-    @early_and_high_renaissance_painting = early_and_high_renaissance_painting
-  end
-
-  def get_description painting_era
-    painting_era.description
-  end
-
-end
-
-class MiddleAgesPainting
-
-  def get_description
-    #description
-  end
-
-end
-
-class EarlyAndHighRenaissancePainting
-
-  def get_description
-    #description
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here we have done some abstraction in the sense that my Arwork class is no longer reliant on any one of the lower level classes such as MiddleAgesPainting or EarlyAndHighRenaissancePainting. Instead, we have a situation where the painting_era can be passed through get_description in the Artwork class.&lt;/p&gt;
-
-&lt;p&gt;I have also utilized a technique called Dependency Injection,&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def initialize(middle_ages_painting, early_and_high_renaissance_painting )
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;where I pass my painting era classes into my Artwork class through the initialize method so it is easily accessible to my Artwork class. This supports my higher level code with the ability to call down to my lower level code.&lt;/p&gt;
-
-&lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;As you can see, by utilizing abstractions we have a greater deal of flexibility with our code. If we used the first example, which is a concrete connection between my Artwork class and my MiddleAgesPainting class, I would have to do that for every additional painting era class that would come about over time, which in turn would force me to change my Artwork class often and hard code it to all these othere classes. Using DIP has now given me the freedom for my higher level class to call down to my lower level classes in an efficient way.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: If you have been following along in my journey through the SOLID principles, well, you’ve made it to the last principle, Dependency Inversion Principle (DIP). The DIP focuses on the importance of abstraction in creating software flexibility. Ultimately you want to depend on class abstractions as opposed to class concretions. What does this all mean? Lets go over it with an example.</summary></entry><entry><title type="html">Interface Segregation Principle</title><link href="http://localhost:4000/2017/06/19/interface-segregation-principle.html" rel="alternate" type="text/html" title="Interface Segregation Principle" /><published>2017-06-19T00:00:00-05:00</published><updated>2017-06-19T00:00:00-05:00</updated><id>http://localhost:4000/2017/06/19/interface-segregation-principle</id><content type="html" xml:base="http://localhost:4000/2017/06/19/interface-segregation-principle.html">&lt;h2&gt; Intro: &lt;/h2&gt;
-&lt;p&gt;Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.&lt;/p&gt;
-
-&lt;p&gt;Java Interfaces aside, I believe what this principle is trying to get at is you want to separate functionality as much as possible so your software does not get tied up in what could become a situation where you have classes that do too much and in turn it makes it much harder to build flexibility into your software. Lets explore this with an example we’ve seen before.&lt;/p&gt;
-
-&lt;h2&gt; Interface Segregation Principle Example &lt;/h2&gt;
-&lt;p&gt;When I first blogged about SOLID, I started with the Single Responsibility Principle with the following example:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    puts title
-  end
-
-  def get_artist artist
-    puts artist
-  end
-
-  def get_description description
-    puts description
-  end
-
-  def get_location location
-    puts location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I’ve used the Artwork Gallery example for all of the SOLID principles thus far, but for this particular principle let’s go back in time when our Gallery software was represented in a single class named Artwork.&lt;/p&gt;
-
-&lt;p&gt;We’ve discussed that this is a clear violation of the Single Responsibility Principle. There is a lot going on in this one class and it lacks abstractions (aka lacks separation of methods) that allow for flexibility of your software. For instance, I’ve mentioned that this class is doing too much. It is printing values and giving you additional information such as location, which is not necessary when it comes to just getting basic information about the artwork.&lt;/p&gt;
-
-&lt;p&gt;In the end of the Single Responsibility post we settled on the following:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Artwork
-
-  def get_title title
-    title
-  end
-
-  def get_artist artist
-    artist
-  end
-
-  def get_description description
-    description
-  end
-
-end
-
-class Printer
-
-  def print information_to_print
-    puts information_to_print
-  end
-
-end
-
-class Location
-
-  def get_location location
-    location
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here, we abstracted by pulling out a Printer and Location class. We could have also created a printer interface for our Artwork class to handle Artwork specific printing. As mentioned many times before, this type of abstraction will help us greatly as our software grows.&lt;/p&gt;
-
-&lt;h2&gt; Conclusion &lt;/h2&gt;
-&lt;p&gt;Ultimately the biggest takeaway is that you want to prevent yourself from having a single interface that does too much. You want to have multiple interfaces to minimize dependencies on a single class. In the end you and your colleagues will be thankful that you did this from now and into the future.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: Much like the Single Responsibility Principle we have another principle that seeks to maintain separation of different software responsibilities in what is called the Interface Segregation Principle. The purpose of this principle is to ensure that a crafter is abstracting as much as possible when it comes to their particular piece of software. If you think of Java, you can create interfaces that allow you to abstract pieces of information that might not fit within a class hierarchy. This is helpful as it prevents creating dependencies that could cause issues down the road as the software grows.</summary></entry></feed>
+&lt;p&gt;I highly recommed Sandi Metz’s POODR book! It really game me insight into good Object Oriented Design. I’m almost positive that my current design is not the best design, but it is a start. With more experience, comes a better understanding of design practices.&lt;/p&gt;</content><author><name></name></author><summary type="html">Intro: The idea of software design is a fairly new concept to me. I knew the basics, such as DRY, but in reality I was still creating potential issues in the console applications that I created. Now, being fairly new to software development I’ve noticed that you don’t really run into many ideas and practices of design in tutorials. I suspect that it is because a good majority of the projects you create or work on during tutorials are so small in code length. You don’t have to worry about design and interfaces, because you are simply learning the language. In this post I would like to share a bit of my current app and talk about some of the changes I made after reading Sandi Metz’s “POODR” book.</summary></entry></feed>
