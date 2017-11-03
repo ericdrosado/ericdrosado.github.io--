@@ -3,7 +3,7 @@ To recap, in my last blog post I discussed my initial impressions of Vim and whe
 
 Vim Plugins allow you to customize certain aspects of your Vim environment. In this post, I would like to go step by step on how to store vim plugins using .vimrc, which is a script that holds your Vim preferences, and Vundle, your first plugin.
 
-<h2> Setting up your .vim and .vimrc Directoriese </h2> 
+<h2> Setting up your .vim and .vimrc Directories</h2> 
 In your root user directory you may already have a ".vim" file. In order to check, on the command line use the ```$ cd ~``` command to go to your user home directory and then type ```$ ls -a``` and you will be given a list of files and directories. If you see ".vim" go ahead and open that directory. If you do not see that directory you need to create it using the following command in the user home directory ```$ mkdir .vim```. 
 
 Once in the .vim directory you want to make a ".vimrc" file using the command ```$ touch .vimrc```.
