@@ -5,10 +5,10 @@ Adding features to an app or even refactoring for that matter can be a difficult
 The new feature was a very simple feature. The ultimate goal was to relabel my board cells starting with the number 1 instead of 0. Here is the before and the after images below:
 
 Before:
-![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/board_before.png){class="img-responsive"}
+![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/board_before.png)
 
 After: 
-![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/board_after.png){class="img-responsive"}
+![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/board_after.png)
 
 Now, on the surface, this feature seems straightforward, but it becomes difficult when your board logic is tied to how a player and computer makes a move. 
 
@@ -54,7 +54,7 @@ Now, notice here that once the move is chosen, that value is used as the index i
 
 This becomes problematic when the board changes it's labeling. Why? Well, if a player now chooses "1," the 1 index is not the first cell, but in fact the second cell. With the current logic kept intact, the board would look like this if 1 was chosen in this new labeling scheme:
 
-![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/one_chosen.png){class="img-responsive"}
+![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/one_chosen.png)
 
 That is obviously not what we want. So, the simple immediate fix that came to my mind is to subtract one from the players choice in the GetMove method. The biggest issue with this is, now my GetMove method and the Class that it is in, will have knowledge about my board and it's Board Class. So this is a huge NO, NO! Besides, this also has the ability to fail some tests as well with this change. So, that option is not an option. Board Logic, must stay within the Board Class. So, here was my remedy to the issue:
 
@@ -71,7 +71,7 @@ Now, the move is properly indexed with a Constant called BoardIndexAdjustment, w
 <h2> The MiniMax Issue </h2>
 The largest issue was much further down the line with the AI logic. The AI relies heavily on the correct board indexing.
 
-![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/minmax_before.png){class="img-responsive"}
+![](/assets/posts/2017-12-27-reflection-on-adding-a-feature-to-tic-tac-toe/minmax_before.png)
 
  A simple subtract one from the move choice will not allow this to be a clean change. This process needed some additional refactoring. Available spaces will grab all the literal values that are not symbols, but numbers. So if spaces 1, 2, and 3 are open, those values will be returned and not the index value on the gameboard. So, when the section of code above does this bit:
 ```
