@@ -8,7 +8,7 @@ During the discovery phase the stakeholders meet together to discuss the require
 
 Example Mapping is a discovery technique that was created by Matt Wynne. The basis of this process is to use concrete examples to help explore the particular system, which in turn becomes the basis for acceptance tests. The examples alone are not enough during this example mapping process. Each mapping process should include a story, rules that govern that story, examples, and questions that might arise during the conversation.
 
-As an example, lets consider the development of software for an ATM machine that dispenses 10's, 20's, and 50's. The customer wants the following:
+As an example, let's consider the development of software for an ATM that dispenses 10's, 20's, and 50's. The customer wants the following:
 ```
 I want to receive a mix of bills when I withdraw cash from the ATM
 ```
@@ -60,7 +60,7 @@ During the formulation phase the story, rules, and examples help to build docume
 
 Gherkin syntax is a "stakeholder readable" language that lets you describe software behavior without going into the programmatic detail of how to implement the behavior. Cucumber, a BDD specific tool, uses Gherkin to write and document acceptance tests.  
 
-Lets say our stakeholders managed to have a successful meeting and were able to outline multiple rules and examples. They might come up with the following Gherkin for our ATM machine:
+Lets say our stakeholders managed to have a successful meeting and were able to outline multiple rules and examples. They might come up with the following Gherkin for our ATM:
 ```
 Scenario: Withdraw from ATM 
 Given I have an account 
@@ -95,7 +95,7 @@ Writing clear concise Gherkin is a skill to master over time, as you don't want 
 If you write enough of these scenarios you will have a great deal of documentation for any team member. With software like Cucumber you can take this syntax and create acceptance tests, which is where we are going next.
 
 <h2> Automation </h2> 
-The automation phase focuses on "automating" the documentation, which essentially means that we can create a living document, by turning this documentation into tests. Now, here is the beauty of using Cucumber. Cucumber allows you to take your Gherkin syntax and package it with your system as tests. Why is this such a huge benefit you might ask. Well, think about it this way. Documentation can potentially live anywhere. With that you could comment in your code or have it written in a README of sorts, but who is going to update that documentation? Maybe you change something where a comment is placed and forget to update the comment. Whoops! That's problematic. Or lets say you make a change and you forget to update the documentation to reflect that. Another mistake. With Cucumber, you have the documentation and if you change something, guess what, your tests could potentially fail. In this case you will either need to change your code or update the document. At this point if you want to make sure your code is in the green, you must update the documentation! Coupled with Cucumber you could also add additional unit tests to ensure your system behaves as intended. 
+The automation phase focuses on "automating" the documentation, which essentially means that we can create a living document, by turning this documentation into tests. Now, here is the beauty of using Cucumber. Cucumber allows you to take your Gherkin syntax and package it with your system as tests. Why is this such a huge benefit you might ask. Well, think about it this way. Documentation can potentially live anywhere. With that you could comment in your code or have it written in a README of sorts, but who is going to update that documentation? Maybe you change something where a comment is placed and forget to update the comment. Whoops! That's problematic. Or let's say you make a change and you forget to update the documentation to reflect that. Another mistake. With Cucumber, you have the documentation and if you change something, guess what, your tests could potentially fail. In this case you will either need to change your code or update the document. At this point if you want to make sure your code is in the green, you must update the documentation! Coupled with Cucumber you could also add additional unit tests to ensure your system behaves as intended. 
 
 <h2> Conclusion </h2>
 BDD is a powerful collaboration tool. BDD coupled with Cucumber and TDD can be an incredibly powerful tool, but only if you have buy in from your organization. I highly recommend attending a BDD workshop and seeing if this is something your company can implement as it can help streamline the development process with the involvement of stakeholders from different departments.
